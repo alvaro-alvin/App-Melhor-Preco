@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C622863428BFCBCD005439E4 /* oferta.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622863328BFCBCD005439E4 /* oferta.swift */; };
+		C622863D28BFDFC7005439E4 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622863C28BFDFC7005439E4 /* TabbarController.swift */; };
 		C6B905CC28B3F9D8003CA032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */; };
 		C6B905CE28B3F9D8003CA032 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */; };
 		C6B905D028B3F9D8003CA032 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B905CF28B3F9D8003CA032 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		C622863328BFCBCD005439E4 /* oferta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = oferta.swift; sourceTree = "<group>"; };
+		C622863C28BFDFC7005439E4 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		C6B905C828B3F9D8003CA032 /* MelhorPreco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MelhorPreco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,8 +44,6 @@
 		C6B905BF28B3F9D7003CA032 = {
 			isa = PBXGroup;
 			children = (
-				C622863328BFCBCD005439E4 /* oferta.swift */,
-				C6E8A44028BD30FF00BBF5B8 /* TableViewOferta.swift */,
 				C6B905CA28B3F9D8003CA032 /* MelhorPreco */,
 				C6B905C928B3F9D8003CA032 /* Products */,
 			);
@@ -60,12 +60,15 @@
 		C6B905CA28B3F9D8003CA032 /* MelhorPreco */ = {
 			isa = PBXGroup;
 			children = (
+				C622863328BFCBCD005439E4 /* oferta.swift */,
+				C6E8A44028BD30FF00BBF5B8 /* TableViewOferta.swift */,
 				C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */,
 				C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */,
 				C6B905CF28B3F9D8003CA032 /* ViewController.swift */,
 				C6B905D428B3F9D8003CA032 /* Assets.xcassets */,
 				C6B905D628B3F9D8003CA032 /* LaunchScreen.storyboard */,
 				C6B905D928B3F9D8003CA032 /* Info.plist */,
+				C622863C28BFDFC7005439E4 /* TabbarController.swift */,
 			);
 			path = MelhorPreco;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C622863428BFCBCD005439E4 /* oferta.swift in Sources */,
+				C622863D28BFDFC7005439E4 /* TabbarController.swift in Sources */,
 				C6E8A44128BD30FF00BBF5B8 /* TableViewOferta.swift in Sources */,
 				C6B905D028B3F9D8003CA032 /* ViewController.swift in Sources */,
 				C6B905CC28B3F9D8003CA032 /* AppDelegate.swift in Sources */,
