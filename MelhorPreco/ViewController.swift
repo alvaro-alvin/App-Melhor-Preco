@@ -48,8 +48,10 @@ class ViewController: UIViewController {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.searchBarStyle = .minimal
+        bar.placeholder = "Pesquie um produto..."
         return bar
     }()
+    
     lazy var tabelaOfertas : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -58,14 +60,16 @@ class ViewController: UIViewController {
         table.isScrollEnabled = true
         table.delegate = self
         table.dataSource = self
+        table.register(TableViewImageAd.self, forCellReuseIdentifier: TableViewImageAd.identifier)
         table.register(TableViewOferta.self, forCellReuseIdentifier: TableViewOferta.identifier)
+        table.showsVerticalScrollIndicator = false
         return table
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        title = "Home"
+        // title = "Home"
         
         self.view.addSubview(addButton)
         self.view.addSubview(profileButton)
@@ -142,12 +146,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0){
+            guard let cell = tableView.dequeueReusableCell(
+                        withIdentifier: TableViewImageAd.identifier,
+                        for: indexPath
+                        ) as? TableViewImageAd else {
+                    return UITableViewCell()}
+            return cell
+        }
         guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: TableViewOferta.identifier,
                     for: indexPath
                     ) as? TableViewOferta else {
                 return UITableViewCell()}
-                let oferta = self.items[indexPath.row]
+                let oferta = self.items[(indexPath.row - 1)] // - 1 porque o primeiro é a imagem
                 print(oferta)
         cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
         cell.labelNome.text = oferta.nome
@@ -158,6 +170,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        if(indexPath.row == 0){
+            return 174
+        }
         return 100
     }
      

@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // cria nossa janela com nossa cena
         let window = UIWindow(windowScene: windowScene)
         // instancia um viewController
-        let viewController = ViewController()
+        let viewController = TabbarController()
         // instancia um navigationController com nossa viewController
         // let navigationController = UINavigationController(rootViewController: viewController)
         // define a raiz da nossa janela como a nossa navigationConbtroller

@@ -17,11 +17,15 @@ class TabbarController:UITabBarController {
     
     private func setupBarController() {
         
-        let viewHome = UINavigationController(rootViewController: ViewHome())
-        let viewList = UINavigationController(rootViewController: ViewList())
+        let viewHome = UINavigationController(rootViewController: ViewController())
+        let viewList = UINavigationController(rootViewController: ListsController())
         let viewGas = UINavigationController(rootViewController: ViewGas())
         
         self.setViewControllers([viewGas, viewHome, viewList], animated: true)
+        // define a home como tela inicial
+        self.selectedIndex = 1
+        self.tabBar.barTintColor = UIColor.white // parece não funcionar
+        
     }
     
 }
@@ -31,7 +35,7 @@ class ViewHome:UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Home"
-        self.view.backgroundColor = .orange
+        //self.view.backgroundColor = .orange
     }
     
 }
