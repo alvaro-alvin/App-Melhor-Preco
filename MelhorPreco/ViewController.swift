@@ -105,23 +105,24 @@ class ViewController: UIViewController {
         ])
     }
      
-    private func setupProfileButton() {
-        NSLayoutConstraint.activate([
-            profileButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
-            profileButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            profileButton.heightAnchor.constraint(equalToConstant: 30),
-            profileButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
-    }
-      
     private func setupAddButton() {
         NSLayoutConstraint.activate([
             addButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
-            addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             addButton.heightAnchor.constraint(equalToConstant: 30),
             addButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
+      
+    private func setupProfileButton() {
+        NSLayoutConstraint.activate([
+            profileButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
+            profileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            profileButton.heightAnchor.constraint(equalToConstant: 30),
+            profileButton.widthAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
     private func setupSearchBar() {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: logoImage.bottomAnchor ,constant: 10),
@@ -142,7 +143,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return items.count
+        return items.count + 2 // + 1 carrocel ofertas, + 1 titulo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,12 +155,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                     return UITableViewCell()}
             return cell
         }
+        if (indexPath.row == 1){
+            let cell = TableViewTitle()
+            cell.title.text = "Principais ofertas"
+            return cell
+        }
         guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: TableViewOferta.identifier,
                     for: indexPath
                     ) as? TableViewOferta else {
                 return UITableViewCell()}
-                let oferta = self.items[(indexPath.row - 1)] // - 1 porque o primeiro é a imagem
+                let oferta = self.items[(indexPath.row - 2)] // - 1 porque o primeiro é a imagem e -1 pelo titulo
                 print(oferta)
         cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
         cell.labelNome.text = oferta.nome
@@ -170,8 +176,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        // Carrocel de ofertas
         if(indexPath.row == 0){
             return 174
+        }
+        // Titulo
+        if(indexPath.row == 1){
+            return 75
         }
         return 100
     }

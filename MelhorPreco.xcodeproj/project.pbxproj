@@ -17,6 +17,7 @@
 		CEA71E1E28E11A79002F7A89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA71E1D28E11A79002F7A89 /* ViewController.swift */; };
 		CEA71E2028E1225C002F7A89 /* ListsContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA71E1F28E1225C002F7A89 /* ListsContoller.swift */; };
 		CEA71E2228E4C70C002F7A89 /* TableViewImageAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA71E2128E4C70C002F7A89 /* TableViewImageAd.swift */; };
+		CEA7233D28E9C706002F7A89 /* TableViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7233C28E9C706002F7A89 /* TableViewTitle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CEA71E1D28E11A79002F7A89 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CEA71E1F28E1225C002F7A89 /* ListsContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsContoller.swift; sourceTree = "<group>"; };
 		CEA71E2128E4C70C002F7A89 /* TableViewImageAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewImageAd.swift; sourceTree = "<group>"; };
+		CEA7233C28E9C706002F7A89 /* TableViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewTitle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				C622863C28BFDFC7005439E4 /* TabbarController.swift */,
 				CEA71E1F28E1225C002F7A89 /* ListsContoller.swift */,
 				CEA71E2128E4C70C002F7A89 /* TableViewImageAd.swift */,
+				CEA7233C28E9C706002F7A89 /* TableViewTitle.swift */,
 			);
 			path = MelhorPreco;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				C6E8A44128BD30FF00BBF5B8 /* TableViewOferta.swift in Sources */,
 				C6B905CC28B3F9D8003CA032 /* AppDelegate.swift in Sources */,
 				C6B905CE28B3F9D8003CA032 /* SceneDelegate.swift in Sources */,
+				CEA7233D28E9C706002F7A89 /* TableViewTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
