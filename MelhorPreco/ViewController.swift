@@ -45,12 +45,14 @@ class ViewController: UIViewController {
     
     let logoImage : UIImageView = {
         let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
+        //image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.masksToBounds = true
         //image.backgroundColor = .lightGray
         image.layer.borderWidth = 0
         image.layer.cornerRadius = 10
         image.image = UIImage(named: "logo_home")
+        image.frame = CGRect(x: 0, y: 0, width: 100, height: 45)
+        image.contentMode = .scaleAspectFit
         return image
     }()
     let searchBar : UISearchBar = {
@@ -83,14 +85,15 @@ class ViewController: UIViewController {
         //self.view.addSubview(addButton)
         self.navigationItem.rightBarButtonItem  = addButton
         self.navigationItem.leftBarButtonItem  = profileButton
-        self.view.addSubview(logoImage)
+        self.navigationItem.titleView = logoImage
+        //self.view.addSubview(logoImage)
         self.view.addSubview(searchBar)
         self.view.addSubview(tabelaOfertas)
         
         //setupNavBar()
         //setupProfileButton()
         //setupAddButton()
-        setupLogoImage()
+        //setupLogoImage()
         setupSearchBar()
         setupTabelaOferta()
         
@@ -135,7 +138,7 @@ class ViewController: UIViewController {
     
     private func setupSearchBar() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: logoImage.bottomAnchor ,constant: 10),
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor ,constant: 90),
             searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -143,7 +146,7 @@ class ViewController: UIViewController {
     }
     private func setupTabelaOferta() {
         NSLayoutConstraint.activate([
-            tabelaOfertas.topAnchor.constraint(equalTo: searchBar.bottomAnchor ,constant: 10),
+            tabelaOfertas.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tabelaOfertas.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tabelaOfertas.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             tabelaOfertas.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -182,7 +185,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         cell.textPreco.text = "R$" + oferta.preco
         cell.textNomeEstabelecimento.text = oferta.estabelecimento
         cell.labelPorcentagem.text =  oferta.porcentagem + "%"
-        cell.textAbaixoDaMedia.text = "Abaixo da média"
+        cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
         return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{

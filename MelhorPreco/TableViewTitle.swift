@@ -17,7 +17,7 @@ class TableViewTitle : UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red: 0.90, green: 0.62, blue: 0.06, alpha: 1.00)
         label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
+        label.adjustsFontSizeToFitWidth = false
         label.font = UIFont.boldSystemFont(ofSize: 26)
         return label
     }()

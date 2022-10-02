@@ -48,6 +48,8 @@ class TableViewOferta : UITableViewCell {
         let preco = UILabel()
         preco.translatesAutoresizingMaskIntoConstraints = false
         preco.text = "       "
+        preco.textColor = .darkGray
+        preco.font = UIFont.systemFont(ofSize: 14)
         //preco.backgroundColor = .lightGray
         
         return preco
@@ -57,6 +59,8 @@ class TableViewOferta : UITableViewCell {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = "       "
+        nome.textColor = .lightGray
+        nome.font = UIFont.systemFont(ofSize: 12)
         //nome.backgroundColor = .darkGray
 
         return nome
@@ -65,9 +69,13 @@ class TableViewOferta : UITableViewCell {
     var textAbaixoDaMedia : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
-        nome.text = "Abaixo da média"
-        nome.textColor = .green
+        nome.text = ""
+        nome.textColor = UIColor(red: 0.60, green: 0.82, blue: 0.56, alpha: 1.00)
         nome.contentMode = .center
+        nome.textAlignment = .center
+        nome.adjustsFontSizeToFitWidth = true
+        nome.font = UIFont.systemFont(ofSize: 11)
+        nome.numberOfLines = 2
         
         return nome
     }()
@@ -78,8 +86,8 @@ class TableViewOferta : UITableViewCell {
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = "    "
         //nome.backgroundColor = .lightGray
-        nome.textColor = .green
-        nome.font = UIFont.boldSystemFont(ofSize: 32.0)
+        nome.textColor = UIColor(red: 0.60, green: 0.82, blue: 0.56, alpha: 1.00)
+        nome.font = UIFont.boldSystemFont(ofSize: 18.0)
         return nome
     }()
     
@@ -159,7 +167,7 @@ class TableViewOferta : UITableViewCell {
     
     func configLabelPorcentagem(){
         NSLayoutConstraint.activate([
-            labelPorcentagem.topAnchor.constraint(equalTo: celulaDireita.topAnchor),
+            labelPorcentagem.topAnchor.constraint(equalTo: celulaDireita.topAnchor, constant: 22),
             labelPorcentagem.centerXAnchor.constraint(equalTo: celulaDireita.centerXAnchor)
             
         ])
@@ -168,10 +176,10 @@ class TableViewOferta : UITableViewCell {
     
     func configTextMedia(){
         NSLayoutConstraint.activate([
-            textAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor),
+            textAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor, constant: -10),
             textAbaixoDaMedia.bottomAnchor.constraint(equalTo: imageViewProduto.bottomAnchor),
-            textAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor),
-            textAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor)
+            textAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor, constant: 22),
+            textAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor, constant: -22)
             
         ])
     }
