@@ -12,28 +12,37 @@ class ViewController: UIViewController {
     
     var items = listaOfertas
     
-    let addButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.masksToBounds = true
-        //button.backgroundColor = .lightGray
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 15
-        button.layer.borderColor = UIColor.black.cgColor
-        button.setImage(UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+    // CONFIGURACAO DO MENU DE CADASTRAR PRECOS
+    
+    private lazy var first = UIAction(title: "Manualmente", image: UIImage(systemName: "square.and.pencil"), attributes: [], state: .off){action in print ("adicao manual")}
+    private lazy var second = UIAction(title: "Por foto", image: UIImage(systemName: "camera"), attributes: [], state: .off){action in print ("adicao por foto")}
+    
+    private lazy var elements:[UIAction] = [first, second]
+    
+    private lazy var menu = UIMenu(title: "Cadastrar preços", children: elements)
+    
+    // CONFIGURANDO BOTAO DE CADASTRAR PRECOS
+    
+    lazy var addButton : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Cadastrar Preços", image: UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: nil, menu: menu)
+
+        //button.layer.borderWidth = 2
+        //button.layer.cornerRadius = 15
+
         return button
     }()
-    let profileButton : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.masksToBounds = true
-        //button.backgroundColor = .lightGray
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 15
-        button.layer.borderColor = UIColor.black.cgColor
-        button.setImage(UIImage(systemName: "person.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+    
+    // CONFIGURACAO DO BOTAO DE PERFIL
+    let profileButton : UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "person.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .plain, target: nil, action: nil)
+
+        //button.layer.borderWidth = 2
+        //button.layer.cornerRadius = 15
+        //button.layer.borderColor = UIColor.black.cgColor
+
         return button
     }()
+    
     let logoImage : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -71,15 +80,16 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         // title = "Home"
         
-        self.view.addSubview(addButton)
-        self.view.addSubview(profileButton)
+        //self.view.addSubview(addButton)
+        self.navigationItem.rightBarButtonItem  = addButton
+        self.navigationItem.leftBarButtonItem  = profileButton
         self.view.addSubview(logoImage)
         self.view.addSubview(searchBar)
         self.view.addSubview(tabelaOfertas)
         
         //setupNavBar()
-        setupProfileButton()
-        setupAddButton()
+        //setupProfileButton()
+        //setupAddButton()
         setupLogoImage()
         setupSearchBar()
         setupTabelaOferta()
@@ -107,19 +117,19 @@ class ViewController: UIViewController {
      
     private func setupAddButton() {
         NSLayoutConstraint.activate([
-            addButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
-            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            addButton.heightAnchor.constraint(equalToConstant: 30),
-            addButton.widthAnchor.constraint(equalToConstant: 30)
+            //addButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
+           // addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            //addButton.heightAnchor.constraint(equalToConstant: 30),
+           // addButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
       
     private func setupProfileButton() {
         NSLayoutConstraint.activate([
-            profileButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
-            profileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            profileButton.heightAnchor.constraint(equalToConstant: 30),
-            profileButton.widthAnchor.constraint(equalToConstant: 30)
+            //profileButton.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor),
+            //profileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            //profileButton.heightAnchor.constraint(equalToConstant: 30),
+           // profileButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
     
