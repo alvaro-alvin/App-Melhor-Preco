@@ -28,7 +28,7 @@ class TableViewTitle : UITableViewCell {
         //self.backgroundColor = .blue
         self.contentView.addSubview(title)
         self.backgroundColor = .white
-        
+        self.selectionStyle = .none
         configTitle()
     }
     

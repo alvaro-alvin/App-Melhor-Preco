@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // title = "Home"
+        self.title = "Ofertas"
         
         //self.view.addSubview(addButton)
         self.navigationItem.rightBarButtonItem  = addButton
@@ -198,6 +198,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             return 75
         }
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Carrocel de ofertas
+        if(indexPath.row == 0){
+            return
+        }
+        // Titulo
+        if(indexPath.row == 1){
+            return
+        }
+        // ofertas
+        let detailView = UIViewOferta()
+        detailView.oferta = items[indexPath.row - 2]
+        navigationController?.pushViewController(detailView, animated: true)
     }
      
 }

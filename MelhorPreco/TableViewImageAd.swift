@@ -28,6 +28,7 @@ class TableViewImageAd : UITableViewCell {
         //self.backgroundColor = .blue
         self.contentView.addSubview(imageViewAd)
         self.backgroundColor = .white
+        self.selectionStyle = .none
         
         configImageView()
     }
