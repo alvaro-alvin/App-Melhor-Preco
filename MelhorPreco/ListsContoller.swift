@@ -37,25 +37,52 @@ class ListsController: UIViewController {
         return button
     }()
     
+    let dataSource: KeyValuePairs = [
+        "Amaciante": 1,
+        "Desodorante": 1,
+        "Litro de leite": 3
+    ]
+    
+    private lazy var listagemProdutos: UICollectionView = {
+        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemGroupedBackground
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         title = "Listas"
         
         self.view.addSubview(listasButton)
-
+        self.view.addSubview(listagemProdutos)
         
         //setupNavBar()
         setupListasButton()
-            
+        setupListagemProdutos()
+        
         view.backgroundColor = .white
-            }
+    }
     
     private func setupListasButton() {
         NSLayoutConstraint.activate([
             listasButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             listasButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             listasButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+        ])
+    }
+    
+    private func setupListagemProdutos() {
+        NSLayoutConstraint.activate([
+            listagemProdutos.topAnchor.constraint(equalTo: view.topAnchor),
+            listagemProdutos.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listagemProdutos.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listagemProdutos.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }

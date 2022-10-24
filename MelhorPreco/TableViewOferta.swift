@@ -70,7 +70,7 @@ class TableViewOferta : UITableViewCell {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = ""
-        nome.textColor = UIColor(red: 0.60, green: 0.82, blue: 0.56, alpha: 1.00)
+        nome.textColor = UIColor(named: "verde_oferta")
         nome.contentMode = .center
         nome.textAlignment = .center
         nome.adjustsFontSizeToFitWidth = true
@@ -86,7 +86,7 @@ class TableViewOferta : UITableViewCell {
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = "    "
         //nome.backgroundColor = .lightGray
-        nome.textColor = UIColor(red: 0.60, green: 0.82, blue: 0.56, alpha: 1.00)
+        nome.textColor = UIColor(named: "verde_oferta")
         nome.font = UIFont.boldSystemFont(ofSize: 18.0)
         return nome
     }()
