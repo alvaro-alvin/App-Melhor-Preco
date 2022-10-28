@@ -19,7 +19,7 @@ class TabbarController:UITabBarController {
     private func setupBarController() {
         
         let viewHome = UINavigationController(rootViewController: ViewController())
-        let viewList = UINavigationController(rootViewController: ListsController())
+        let viewList = UINavigationController(rootViewController: UIViewLists())
         let viewGas = UINavigationController(rootViewController: ViewGas())
         
         self.setViewControllers([viewGas, viewHome, viewList], animated: true)
@@ -53,7 +53,7 @@ class ViewList:UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Listas"
+        self.title = "Listas e compras"
     }
     
 }
