@@ -21,7 +21,7 @@ class UIViewLists: UIViewController{
     lazy var buttonListas : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.lightGray
+        button.backgroundColor = UIColor(named: "appBlue")
         button.layer.cornerRadius = 10
         button.setTitle("Gerenciar listas", for: .normal)
         return button
@@ -229,9 +229,10 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let detailView = UIViewOferta()
-        //detailView.oferta = items[indexPath.row]
-        //navigationController?.pushViewController(detailView, animated: true)
+        let detailView = UIViewMercado()
+        detailView.mercado = itemsMercados[indexPath.row]
+        detailView.listaAtual = self.listaAtual?.nome
+        navigationController?.pushViewController(detailView, animated: true)
     }
 }
  

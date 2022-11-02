@@ -93,7 +93,10 @@ class TableViewOferta : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //self.backgroundColor = .blue
+        self.backgroundColor = .white
+        self.selectionStyle = .none
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
         self.contentView.addSubview(imageViewProduto)
         self.contentView.addSubview(celulaDireita)
         self.contentView.addSubview(celulaEsquerda)

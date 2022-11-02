@@ -10,6 +10,7 @@ import UIKit
 
 class TabbarController:UITabBarController {
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBarController()
@@ -59,11 +60,11 @@ class ViewList:UITabBarController {
 }
 
 class ViewGas:UITabBarController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Gasolina"
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = .white
     }
     
 }
