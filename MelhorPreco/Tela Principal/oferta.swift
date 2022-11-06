@@ -20,53 +20,74 @@ struct Oferta : Decodable {
 let ofertas = """
 [
 {
-    "imagem": "produto_default",
-    "nome": "Produto 1",
-    "preco": "10,00",
-    "estabelecimento": "Mercado 1",
+    "imagem": "arroz - branco - longo fino tipo 1 - camil - 1kg",
+    "nome": "Arroz - Branco - Longo Fino Tipo 1 - Camil - 1kg",
+    "preco": "5,59",
+    "estabelecimento": "Pão de Açúcar",
     "porcentagem": "5.7"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 2",
-    "preco": "8,45",
-    "estabelecimento": "Mercado 3",
+    "imagem": "arroz - branco - longo fino tipo 1 - camil - 1kg",
+    "nome": "Arroz - Branco - Longo Fino Tipo 1 - Camil - 1kg",
+    "preco": "4,75",
+    "estabelecimento": "São Luiz",
     "porcentagem": "4.9"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 3",
-    "preco": "27,00",
-    "estabelecimento": "Mercado 7",
+    "imagem": "feijão carioca - tipo 1 - kicaldo - 1kg",
+    "nome": "Feijão carioca - Tipo 1 - Kicaldo - 1kg",
+    "preco": "8,79",
+    "estabelecimento": "Pão de Açúcar",
     "porcentagem": "4.7"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 4",
-    "preco": "8,99",
-    "estabelecimento": "Mercado 2",
-    "porcentagem": "4.2"
+    "imagem": "feijão carioca - tipo 1 - kicaldo - 1kg",
+    "nome": "Feijão carioca - Tipo 1 - Kicaldo - 1kg",
+    "preco": "7,99",
+    "estabelecimento": "São Luiz",
+    "porcentagem": "5.7"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 5",
-    "preco": "54,30",
-    "estabelecimento": "Mercado 1",
-    "porcentagem": "3.8"
+    "imagem": "farinha - de trigo - tradicional - dona benta - 1kg",
+    "nome": "Farinha - de trigo - Tradicional - Dona Benta - 1kg",
+    "preco": "7,69",
+    "estabelecimento": "Pão de Açúcar",
+    "porcentagem": "7.0"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 6",
-    "preco": "2,99",
-    "estabelecimento": "Mercado 3",
-    "porcentagem": "3.2"
+    "imagem": "farinha - de trigo - tradicional - dona benta - 1kg",
+    "nome": "Farinha - de trigo - Tradicional - Dona Benta - 1kg",
+    "preco": "4,99",
+    "estabelecimento": "São Luiz",
+    "porcentagem": "6.1"
 },
 {
-    "imagem": "produto_default",
-    "nome": "Produto 7",
-    "preco": "12,00",
-    "estabelecimento": "Mercado 5",
-    "porcentagem": "3.0"
+    "imagem": "leite fermentado - desnatado - yakult - 480g",
+    "nome": "Leite Fermentado - Desnatado - Yakult - 480g",
+    "preco": "10,69",
+    "estabelecimento": "Pão de Açúcar",
+    "porcentagem": "5.2"
+},
+{
+    "imagem": "leite fermentado - desnatado - yakult - 480g",
+    "nome": "Leite Fermentado - Desnatado - Yakult - 480g",
+    "preco": "11,05",
+    "estabelecimento": "São Luiz",
+    "porcentagem": "5.9"
+},
+{
+    "imagem": "detergente - limpol - coco - 500ml",
+    "nome": "Detergente - Limpol - Coco - 500ml",
+    "preco": "2,49",
+    "estabelecimento": "Pão de Açúcar",
+    "porcentagem": "5.0"
+},
+{
+    "imagem": "detergente - limpol - coco - 500ml",
+    "nome": "Detergente - Limpol - Coco - 500ml",
+    "preco": "2,85",
+    "estabelecimento": "São Luiz",
+    "porcentagem": "5.8"
 }
 ]
 """

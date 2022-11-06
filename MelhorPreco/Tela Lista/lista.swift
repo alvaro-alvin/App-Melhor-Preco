@@ -7,78 +7,34 @@
 
 import Foundation
 
-struct Lista : Decodable {
+struct Lista : Codable {
     var nome : String
     var produtos: [String]
 }
 
 
-let listas = """
-[
-{
-    "nome": "Lista 1",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 2",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 3",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 4",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 5",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 6",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
-},
-{
-    "nome": "Lista 7",
-    "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
-        ]
+func loadJson(filename fileName: String) -> [Lista]? {
+    if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+        do {
+            let listasData = try Data(contentsOf: url)
+            let jsonData = try JSONDecoder().decode([Lista].self, from: listasData)
+            return jsonData
+        } catch {
+            print("error:\(error)")
+        }
+    }
+    return nil
 }
-]
-"""
-let listasData = listas.data(using: .utf8)!
-let listaListas: [Lista] = try! JSONDecoder().decode([Lista].self, from: listasData)
+
+func writeJson(lista: [Lista], fileName: String) -> Bool{
+    if let url = Bundle.main.url(forResource: fileName, withExtension: "json"){
+        do{
+            let jsonData = try JSONEncoder().encode(lista)
+            try jsonData.write(to: url)
+            print("Arquivo escrito: \(fileName).json")
+        } catch {
+            print("Erro ao gravar arquivo")
+            return false        }
+    }
+    return true
+}

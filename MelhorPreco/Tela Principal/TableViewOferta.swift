@@ -193,3 +193,12 @@ class TableViewOferta : UITableViewCell {
     
     
 }
+
+extension String {
+    func shorted(to symbols: Int) -> String {
+        guard self.count > symbols else {
+            return self
+        }
+        return self.prefix(symbols) + " ..."
+    }
+}

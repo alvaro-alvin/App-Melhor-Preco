@@ -9,13 +9,16 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class UIViewLists: UIViewController{
     
     
     public var listaAtual: Lista?
     
-    var itemsListas = listaListas
+    let defaults = UserDefaults.standard
+    
+    var itemsListas = loadJson(filename: "listas")
     var itemsMercados = listaMercadosLista
     
     lazy var buttonListas : UIButton = {
@@ -26,9 +29,25 @@ class UIViewLists: UIViewController{
         button.setTitle("Gerenciar listas", for: .normal)
         return button
     }()
+    //ação quando a lista atual for tocada
+    @objc func checkAction(sender : UITapGestureRecognizer) {
+        let editorView = UIViewListEditor()
+        editorView.listaAtual = self.listaAtual
+        editorView.index = 0
+        navigationController?.pushViewController(editorView, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.itemsListas = loadJson(filename: "listas")
+        self.listaAtual = self.itemsListas![0]
+        self.tableLista.reloadData()
+    }
+    
     
     lazy var viewListaAtual : UIView = {
         let view = UIView()
+
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(red: 1, green: 0.98, blue: 0.97, alpha: 1)
         view.layer.borderColor = UIColor(named: "AccentColor")?.cgColor
@@ -36,6 +55,9 @@ class UIViewLists: UIViewController{
         view.layer.cornerRadius = 20
         return view
     }()
+
+
+    
     lazy var separador : UIView = {
         let separador = UIView()
         separador.backgroundColor = UIColor(named: "AccentColor")
@@ -56,11 +78,11 @@ class UIViewLists: UIViewController{
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
         table.separatorStyle = .none
-        table.isScrollEnabled = false
+        table.isScrollEnabled = true
         table.delegate = self
         table.dataSource = self
         table.register(TableViewLista.self, forCellReuseIdentifier: TableViewLista.identifier)
-        table.showsVerticalScrollIndicator = false
+        table.showsVerticalScrollIndicator = true
         return table
     }()
     
@@ -81,12 +103,36 @@ class UIViewLists: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        listaAtual = itemsListas[0]
+        listaAtual = itemsListas![0]
         // Do any additional setup after loading the view.
 
         self.title = "Listas e compras"
         
+        guard (defaults.data(forKey: "listaAtual") != nil)
+            
+        else{
+            do{
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+
+            // Encode Note
+            let data = try encoder.encode(listaAtual)
+
+            // Write/Set Data
+            defaults.set(data, forKey: "listaAtual")
+            }
+            catch{
+                print("erro ao setar lista atual (\(error))")
+            }
+            return
+        }
+        
         tituloListaAtual.text = listaAtual?.nome
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
+        viewListaAtual.addGestureRecognizer(gesture)
+        
+        
 
         self.view.addSubview(buttonListas)
         self.view.addSubview(viewListaAtual)
@@ -229,10 +275,12 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailView = UIViewMercado()
-        detailView.mercado = itemsMercados[indexPath.row]
-        detailView.listaAtual = self.listaAtual?.nome
-        navigationController?.pushViewController(detailView, animated: true)
+        if(tableView == tabelaMercados){
+            let detailView = UIViewMercado()
+            detailView.mercado = itemsMercados[indexPath.row]
+            detailView.listaAtual = self.listaAtual?.nome
+            navigationController?.pushViewController(detailView, animated: true)
+        }
     }
 }
  

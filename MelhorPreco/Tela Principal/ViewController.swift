@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class ViewController: UIViewController {
     
@@ -16,8 +17,38 @@ class ViewController: UIViewController {
     
     // CONFIGURACAO DO MENU DE CADASTRAR PRECOS
     
-    private lazy var first = UIAction(title: "Manualmente", image: UIImage(systemName: "square.and.pencil"), attributes: [], state: .off){action in print ("adicao manual")}
-    private lazy var second = UIAction(title: "Por foto", image: UIImage(systemName: "camera"), attributes: [], state: .off){action in print ("adicao por foto")}
+    struct ImagePickerView: UIViewControllerRepresentable {
+
+        @Binding var selectedImage: UIImage?
+        @Environment(\.presentationMode) var isPresented
+        var sourceType: UIImagePickerController.SourceType
+            
+        func makeUIViewController(context: Context) -> UIImagePickerController {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = self.sourceType
+            return imagePicker
+        }
+
+        func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+
+        }
+    }
+    
+    private lazy var first = UIAction(title: "Manualmente", image: UIImage(systemName: "square.and.pencil"), attributes: [], state: .off)
+    {
+        action in print ("adicao manual")
+        // futuro
+        // ofertas
+        //let cadastroManualView = CcadastroManualView()
+        //navigationController?.pushViewController(cadastroManualView, animated: true)
+    }
+    
+    private lazy var second = UIAction(title: "Por foto", image: UIImage(systemName: "camera"), attributes: [], state: .off)
+    {
+        action in print ("adicao por foto")
+        ImageSelector().selecionadorImagem(self){_ in } // por enquanto não faz nada com a imagem
+        // futuro: {image in <lugar onde a imagem sera armazenada> = image}
+    }
     
     private lazy var elements:[UIAction] = [first, second]
     
@@ -142,6 +173,7 @@ class ViewController: UIViewController {
                 }
             }
         }
+    	
     
     private func setupNavBar(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .plain, target: self, action: nil)
@@ -223,7 +255,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBa
                     let oferta = self.items[(indexPath.row - 2)] // - 1 porque o primeiro é a imagem e -1 pelo titulo
                     print(oferta)
             cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
-            cell.labelNome.text = oferta.nome
+            cell.labelNome.text = oferta.nome.shorted(to: 15)
             cell.textPreco.text = "R$" + oferta.preco
             cell.textNomeEstabelecimento.text = oferta.estabelecimento
             cell.labelPorcentagem.text =  oferta.porcentagem + "%"
@@ -240,7 +272,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBa
                     let oferta = self.itemsFiltrados[(indexPath.row)]
                     print(oferta)
             cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
-            cell.labelNome.text = oferta.nome
+            cell.labelNome.text = oferta.nome.shorted(to: 15)
             cell.textPreco.text = "R$" + oferta.preco
             cell.textNomeEstabelecimento.text = oferta.estabelecimento
             cell.labelPorcentagem.text =  oferta.porcentagem + "%"
