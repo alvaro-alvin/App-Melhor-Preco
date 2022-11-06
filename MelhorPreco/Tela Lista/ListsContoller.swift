@@ -41,6 +41,7 @@ class UIViewLists: UIViewController{
         super.viewWillAppear(animated)
         self.itemsListas = loadJson(filename: "listas")
         self.listaAtual = self.itemsListas![0]
+        self.tituloListaAtual.text = self.itemsListas![0].nome
         self.tableLista.reloadData()
     }
     
