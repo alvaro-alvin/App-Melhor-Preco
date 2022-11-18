@@ -29,6 +29,12 @@ class UIViewLists: UIViewController{
         button.setTitle("Gerenciar listas", for: .normal)
         return button
     }()
+    
+    @objc func goToGerencia(sender: UIButton!) {
+        let gerenciaView = ViewGerenciaListas()
+        navigationController?.pushViewController(gerenciaView, animated: true)
+    }
+    
     //ação quando a lista atual for tocada
     @objc func checkAction(sender : UITapGestureRecognizer) {
         let editorView = UIViewListEditor()
@@ -132,6 +138,8 @@ class UIViewLists: UIViewController{
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         viewListaAtual.addGestureRecognizer(gesture)
+        
+        buttonListas.addTarget(self, action: #selector(goToGerencia), for: .touchUpInside)
         
         
 

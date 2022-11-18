@@ -38,3 +38,4 @@ func writeJson(lista: [Lista], fileName: String) -> Bool{
     }
     return true
 }
+
