@@ -2,7 +2,7 @@
 //  ProdutoModel+CoreDataProperties.swift
 //  MelhorPreco
 //
-//  Created by user on 09/11/22.
+//  Created by user on 25/11/22.
 //
 //
 

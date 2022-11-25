@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ListaModel" representedClassName="ListaModel" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="produtos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProdutoModel"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="produtos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProdutoModel" inverseName="listas" inverseEntity="ProdutoModel"/>
     </entity>
     <entity name="ProdutoModel" representedClassName="ProdutoModel" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="listas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ListaModel"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="listas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ListaModel" inverseName="produtos" inverseEntity="ListaModel"/>
     </entity>
     <elements>
         <element name="ListaModel" positionX="-63" positionY="-18" width="128" height="59"/>

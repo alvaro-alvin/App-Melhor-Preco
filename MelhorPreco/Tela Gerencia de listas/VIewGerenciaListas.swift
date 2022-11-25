@@ -16,48 +16,30 @@ class ViewGerenciaListas: UIViewController {
     
     //var itemsFiltrados: [Oferta] = []
     
-    var listas = loadJson(filename: "listas")
+    //var listas = loadJson(filename: "listas")
     
     var listasCore : [NSManagedObject] = []
     
-    lazy var persistentContainer: NSPersistentContainer = {
-      let container = NSPersistentContainer(name: "CoreDataRelationship")
-      container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-        if let error = error as NSError? {
-          fatalError("Unresolved error \(error), \(error.userInfo)")
-        }
-      })
-      return container
-    }()
+    let managedContext =
+      (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    func reloadTableData(){
+        do {
+            listasCore = try managedContext.fetch(ListaModel.fetchRequest())
+            DispatchQueue.main.async {
+                self.tabelaOfertas.reloadData()
+            }
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+      reloadTableData()
       
-      //1
-      guard let appDelegate =
-        UIApplication.shared.delegate as? AppDelegate else {
-          return
-      }
-      
-      let managedContext =
-        appDelegate.persistentContainer.viewContext
-      
-      //2
-      let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "ListaModel")
-      
-      //3
-      do {
-        listasCore = try managedContext.fetch(fetchRequest)
-      } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
-      }
     }
 
-
- 
-    
     lazy var tabelaOfertas : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -101,9 +83,6 @@ class ViewGerenciaListas: UIViewController {
           }
             
             self.save(name: nameToSave)
-            
-            
-          self.tabelaOfertas.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -116,44 +95,27 @@ class ViewGerenciaListas: UIViewController {
         
         present(alert, animated: true)
     }
-    
+    // adiciona nova lista ao CoreData
     func save(name: String) {
-      
-      guard let appDelegate =
-        UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-      
-      // 1
-      let managedContext =
-        appDelegate.persistentContainer.viewContext
-      
-      // 2
-      let entity =
-        NSEntityDescription.entity(forEntityName: "ListaModel",
-                                   in: managedContext)!
-      
-      let newLista = NSManagedObject(entity: entity,
-                                   insertInto: managedContext)
-      
-      // 3
-      newLista.setValue(name, forKeyPath: "name")
-      
-      // 4
+        
+        // Cria uma nova lista
+        let newLista = ListaModel(context: managedContext);
+        newLista.name = name;
+      // salva lista criada
       do {
         try managedContext.save()
-        listasCore.append(newLista)
+        reloadTableData()
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
     }
     
     @objc func search(sender: UIButton!) {
-        let alert = UIAlertController(title: "Encontrar",
-                                      message: "Busque por nome",
+        let alert = UIAlertController(title: "Adicionar arroz",
+                                      message: "Digite o nome da lista a qual voce quer adicionar arroz",
                                       preferredStyle: .alert)
         
-        let saveAction = UIAlertAction(title: "Procurar",
+        let saveAction = UIAlertAction(title: "Essa mesmo",
                                        style: .default) {
           [unowned self] action in
                                         
@@ -163,12 +125,9 @@ class ViewGerenciaListas: UIViewController {
           }
             
             self.find(name: nameToSave)
-            
-            
-          self.tabelaOfertas.reloadData()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Não quero adicionar arroz a nada",
                                          style: .cancel)
         
         alert.addTextField()
@@ -180,29 +139,7 @@ class ViewGerenciaListas: UIViewController {
     }
     
     func find(name: String) {
-      
-      guard let appDelegate =
-        UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-      
-      // 1
-      let managedContext =
-        appDelegate.persistentContainer.viewContext
-      
-      // 2
-      let entity =
-        NSEntityDescription.entity(forEntityName: "ListaModel",
-                                   in: managedContext)!
-      
-      let newLista = NSManagedObject(entity: entity,
-                                   insertInto: managedContext)
-      
-      // 3
-      newLista.setValue(name, forKeyPath: "name")
-        
-        // Create a fetch request with a string filter
-        // for an entity’s name
+      // cria o requesta para reotornar a lista com determinado nome
         let fetchRequest: NSFetchRequest<ListaModel>
         fetchRequest = ListaModel.fetchRequest()
 
@@ -210,41 +147,52 @@ class ViewGerenciaListas: UIViewController {
             format: "name = %@", name
         )
 
-
-        // Perform the fetch request to get the objects
-        // matching the predicate
-      
-      // 4
       do {
-        let object = try managedContext.fetch(fetchRequest)
+          // faz o request e obtem o a lista
+          let object = try managedContext.fetch(fetchRequest)
           print("nome da lista : \(object[0].name!)")
-          let novo_produto = ProdutoModel(context: persistentContainer.viewContext)
-          novo_produto.name = "arroz"
-          object[0].addToProdutos(novo_produto)
-          var i = 0
-          // https://medium.com/@meggsila/core-data-relationship-in-swift-5-made-simple-f51e19b28326
-          for produto in produtos(lista: object[0]) {
-              i += 1
-              print("produto \(i + 1) : \(produto.name!)")
-          }
           
+          // gera novo produto
+          print("gerando novo produto...")
+          let novo_produto = ProdutoModel(context: managedContext)
+          novo_produto.name = "Arroz"
+          
+          // Adiciona o porduto gerado à lista
+          print("Adicionando arroz a lista...")
+          object[0].addToProdutos(novo_produto)
+          
+          // salva o que foi feito
+          try managedContext.save()
+          
+          // extrai os produtos da lista selecionada
+          var i = 0
+          print("Extraindo produtos da lista")
+          let produtos_da_lista: [ProdutoModel] = produtos(lista: object[0])
+          // percorre a lista e printa os produtos
+          print("tamanho \(produtos_da_lista.count)")
+          for produto in  produtos_da_lista{
+              i += 1
+              print("produto \(i) : \(produto.name!)")
+          }
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
     }
     
+    
+    // funcao que retorna os produtos de uma lista
     func produtos(lista: ListaModel) -> [ProdutoModel] {
       let request: NSFetchRequest<ProdutoModel> = ProdutoModel.fetchRequest()
-      request.predicate = NSPredicate(format: "listas = %@", lista)
-      var fetchedSongs: [ProdutoModel] = []
+        request.predicate = NSPredicate(format: "ANY listas = %@", lista)
+      var fetchedProducts: [ProdutoModel] = []
       do {
-        fetchedSongs = try persistentContainer.viewContext.fetch(request)
+          fetchedProducts = try self.managedContext.fetch(request)
       } catch let error {
-        print("Error fetching songs \(error)")
+        print("Error fetching products \(error)")
       }
-      return fetchedSongs
+      return fetchedProducts
     }
-
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

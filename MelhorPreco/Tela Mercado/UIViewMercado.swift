@@ -111,7 +111,7 @@ extension UIViewMercado: UITableViewDelegate, UITableViewDataSource{
                 let produto = self.items[(indexPath.row)]
                 print(produto)
         cell.imageViewProduto.image  = UIImage(named: produto.imagem)
-        cell.labelNome.text = produto.nome
+        cell.labelNome.text = produto.nome.shorted(to: 15)
         cell.textPreco.text = "R$" + produto.preco
         cell.labelPorcentagem.text =  produto.porcentagem + "%"
         cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"

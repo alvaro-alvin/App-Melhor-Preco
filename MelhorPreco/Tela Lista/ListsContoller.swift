@@ -93,6 +93,17 @@ class UIViewLists: UIViewController{
         return table
     }()
     
+    lazy var Estabelecimentos_indicados : UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(red: 0.90, green: 0.62, blue: 0.06, alpha: 1.00)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = false
+        label.font = UIFont.boldSystemFont(ofSize: 26)
+        label.text = "Estabelecimentos indicados:"
+        return label
+    }()
+    
 
 
     lazy var tabelaMercados : UITableView = {
@@ -148,12 +159,14 @@ class UIViewLists: UIViewController{
         self.viewListaAtual.addSubview(separador)
         self.viewListaAtual.addSubview(tituloListaAtual)
         self.viewListaAtual.addSubview(tableLista)
+        self.view.addSubview(Estabelecimentos_indicados)
         self.view.addSubview(tabelaMercados)
         configButtonListas()
         configListView()
         configSeparador()
         configLabelTitulo()
         configTableLista()
+        configLabelIndicados()
         configTableMercado()
         
                 
@@ -206,9 +219,18 @@ class UIViewLists: UIViewController{
         ])
     }
     
+    func configLabelIndicados(){
+        NSLayoutConstraint.activate([
+            Estabelecimentos_indicados.topAnchor.constraint(equalTo: viewListaAtual.bottomAnchor, constant: 20),
+            Estabelecimentos_indicados.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            Estabelecimentos_indicados.heightAnchor.constraint(equalToConstant: 40),
+            Estabelecimentos_indicados.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20)
+        ])
+    }
+    
     private func configTableMercado() {
         NSLayoutConstraint.activate([
-            tabelaMercados.topAnchor.constraint(equalTo: viewListaAtual.bottomAnchor, constant: 20),
+            tabelaMercados.topAnchor.constraint(equalTo: Estabelecimentos_indicados.bottomAnchor, constant: 10),
             tabelaMercados.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tabelaMercados.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             tabelaMercados.bottomAnchor.constraint(equalTo: view.bottomAnchor)
