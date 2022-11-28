@@ -9,17 +9,24 @@
 
 import Foundation
 import UIKit
-import SwiftUI
 
 class UIViewLists: UIViewController{
     
     
-    public var listaAtual: Lista?
+    public var listaAtual: ListaModel?
+    
+    let dataManager = DataManager()
+    
+    let managedContext =
+      (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let defaults = UserDefaults.standard
     
     var itemsListas = loadJson(filename: "listas")
+    
     var itemsMercados = listaMercadosLista
+    
+    lazy var produtos: [ProdutoModel] = []
     
     lazy var buttonListas : UIButton = {
         let button = UIButton()
@@ -45,9 +52,7 @@ class UIViewLists: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.itemsListas = loadJson(filename: "listas")
-        self.listaAtual = self.itemsListas![0]
-        self.tituloListaAtual.text = self.itemsListas![0].nome
+        self.tituloListaAtual.text = listaAtual!.name
         self.tableLista.reloadData()
     }
     
@@ -121,31 +126,22 @@ class UIViewLists: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        listaAtual = itemsListas![0]
+        if(!isKeyPresentInUserDefaults(key: "firstTime") || defaults.bool(forKey: "firstTime") == true){
+            dataManager.load2Core(Array: itemsListas!, context: managedContext)
+            listaAtual = dataManager.saveNewLista(Titulo: itemsListas![0].nome, context: managedContext)
+            defaults.set(itemsListas![0].nome, forKey: "listaAtual")
+            defaults.set(false, forKey: "firstTime")
+        }
+        else{
+            listaAtual = dataManager.saveNewLista(Titulo: defaults.string(forKey: "listaAtual")!, context: managedContext)
+        }
         // Do any additional setup after loading the view.
 
         self.title = "Listas e compras"
         
-        guard (defaults.data(forKey: "listaAtual") != nil)
-            
-        else{
-            do{
-            // Create JSON Encoder
-            let encoder = JSONEncoder()
-
-            // Encode Note
-            let data = try encoder.encode(listaAtual)
-
-            // Write/Set Data
-            defaults.set(data, forKey: "listaAtual")
-            }
-            catch{
-                print("erro ao setar lista atual (\(error))")
-            }
-            return
-        }
+        produtos = dataManager.produtosFrom(lista: listaAtual!, context: managedContext)
         
-        tituloListaAtual.text = listaAtual?.nome
+        tituloListaAtual.text = listaAtual?.name
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         viewListaAtual.addGestureRecognizer(gesture)
@@ -253,7 +249,7 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(tableView == tableLista){
-            return listaAtual!.produtos.count
+            return produtos.count
         }
         if(tableView == tabelaMercados){
             return self.itemsMercados.count
@@ -268,8 +264,8 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
                     for: indexPath
                     ) as? TableViewLista else {
                 return UITableViewCell()}
-        cell.labelProduto.text = "• " + listaAtual!.produtos[indexPath.row]
-        print(listaAtual!.produtos[indexPath.row])
+            cell.labelProduto.text = "• " + produtos[indexPath.row].name!
+            print(produtos[indexPath.row].name!)
         cell.selectionStyle = .none
         return cell;
         }
@@ -309,10 +305,14 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
         if(tableView == tabelaMercados){
             let detailView = UIViewMercado()
             detailView.mercado = itemsMercados[indexPath.row]
-            detailView.listaAtual = self.listaAtual?.nome
+            detailView.listaAtual = self.listaAtual?.name
             navigationController?.pushViewController(detailView, animated: true)
         }
     }
+}
+
+func isKeyPresentInUserDefaults(key: String) -> Bool {
+    return UserDefaults.standard.object(forKey: key) != nil
 }
  
 

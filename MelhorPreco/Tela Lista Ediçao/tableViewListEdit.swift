@@ -8,10 +8,20 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
     static let identifier : String = "TableViewListEdit"
+    
+    var produto: ProdutoModel?
+    
+    var produtoName: String?
+
+    let managedContext =
+      (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var isProduto = true
         
     var index: Int = 0
     
@@ -32,19 +42,7 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
     // Atualiza os produtos da lista atual quando ele esta sendo editado
     func textFieldDidEndEditing(_ textField: UITextField) {
-        do{
-        var listaAtual = try JSONDecoder().decode(Lista.self, from: defaults.data(forKey: "listaAtual")!)
-            listaAtual.produtos[index] = textField.text!
-            print(listaAtual)
-            
-            let data = try JSONEncoder().encode(listaAtual)
-            // Write/Set Data
-            defaults.set(data, forKey: "listaAtual")
-        }
-        catch{
-            print("Erro ao extrair lista atual de defaults (\(error)))")
-        }
-        
+            produto!.name = textField.text!
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -60,6 +58,11 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
         configLabelProduto()
         
     }
+    
+    func autoConfigure(){
+        textProduto.text = produto!.name
+    }
+    
     
     func configPrefix(){
         NSLayoutConstraint.activate([

@@ -2,69 +2,71 @@
 {
     "nome": "Lista 1",
     "produtos": [
-        "1x Amaciante",
-        "1x Desodorante",
-        "1x pct papel higienico",
-        "3x litro de leite",
-        "2x pct massa 500g",
-        "1x pct arroz 1kg",
-        "1x Banana",
-        "1x Mamão",
-        "3x abobrinha"
+        "Amaciante",
+        "Desodorante",
+        "Papel higienico",
+        "Litro de leite",
+        "Massa 500g",
+        "Arroz 1kg",
+        "Banana",
+        "Mamão",
+        "Abobrinha"
         ]
 },
 {
     "nome": "Lista 2",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Alface",
+        "Tomate",
+        "Feijão",
+        "Arroz 1kg",
+        "Batata"
         ]
 },
 {
     "nome": "Lista 3",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Limpa vidros",
+        "Desinfetante",
+        "Sabão em pó",
+        "Detergente",
+        "Esponja"
         ]
 },
 {
     "nome": "Lista 4",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Peito de frango",
+        "Batata doce",
+        "Suprimento",
+        "Leite"
         ]
 },
 {
     "nome": "Lista 5",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Leite em pó",
+        "Fraldas",
+        "Lenço umedecido",
+        "Talco"
         ]
 },
 {
     "nome": "Lista 6",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Presunto",
+        "Queijo",
+        "Pão",
+        "Nata"
         ]
 },
 {
     "nome": "Lista 7",
     "produtos": [
-        "bla1",
-        "bla2",
-        "bla3",
-        "bla4"
+        "Nescau",
+        "Leite",
+        "Cereal",
+        "Aveia"
         ]
 }
 ]

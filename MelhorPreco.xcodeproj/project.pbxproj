@@ -17,7 +17,6 @@
 		CE1CBC6F29157B3000341C6B /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CBC6E29157B3000341C6B /* ImageSelector.swift */; };
 		CE1CBC722915844F00341C6B /* listas.json in Resources */ = {isa = PBXBuildFile; fileRef = CE1CBC712915844F00341C6B /* listas.json */; };
 		CE1CBC7429158C5C00341C6B /* ViewListEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1CBC7329158C5C00341C6B /* ViewListEditor.swift */; };
-		CE40BE5F292D0865005E0750 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE5E292D0865005E0750 /* DataManager.swift */; };
 		CE40BE6429313E4B005E0750 /* ProdutoModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6029313E4B005E0750 /* ProdutoModel+CoreDataClass.swift */; };
 		CE40BE6529313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */; };
 		CE40BE6629313E4B005E0750 /* ListaModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */; };
@@ -26,6 +25,7 @@
 		CE61085128F9CA5C009EDCA2 /* mercados.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61085028F9CA5C009EDCA2 /* mercados.swift */; };
 		CE61085328F9CCA2009EDCA2 /* TableViewMercado.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */; };
 		CE81DD4B291828850045F6A0 /* tableViewListEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81DD4A291828850045F6A0 /* tableViewListEdit.swift */; };
+		CE8F6C1C2934F43400CC37F7 /* Model_aux.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8F6C1B2934F43400CC37F7 /* Model_aux.swift */; };
 		CE982877290C19530086888B /* lista.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE982876290C19530086888B /* lista.swift */; };
 		CE982879290C273F0086888B /* tableViewLista.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE982878290C273F0086888B /* tableViewLista.swift */; };
 		CE98287B291040DB0086888B /* UIViewMercado.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE98287A291040DB0086888B /* UIViewMercado.swift */; };
@@ -50,7 +50,6 @@
 		CE1CBC6E29157B3000341C6B /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
 		CE1CBC712915844F00341C6B /* listas.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = listas.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		CE1CBC7329158C5C00341C6B /* ViewListEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewListEditor.swift; sourceTree = "<group>"; };
-		CE40BE5E292D0865005E0750 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		CE40BE6029313E4B005E0750 /* ProdutoModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProdutoModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProdutoModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListaModel+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -59,6 +58,7 @@
 		CE61085028F9CA5C009EDCA2 /* mercados.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mercados.swift; sourceTree = "<group>"; };
 		CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewMercado.swift; sourceTree = "<group>"; };
 		CE81DD4A291828850045F6A0 /* tableViewListEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableViewListEdit.swift; sourceTree = "<group>"; };
+		CE8F6C1B2934F43400CC37F7 /* Model_aux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model_aux.swift; sourceTree = "<group>"; };
 		CE982876290C19530086888B /* lista.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lista.swift; sourceTree = "<group>"; };
 		CE982878290C273F0086888B /* tableViewLista.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableViewLista.swift; sourceTree = "<group>"; };
 		CE98287A291040DB0086888B /* UIViewMercado.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewMercado.swift; sourceTree = "<group>"; };
@@ -84,10 +84,6 @@
 		C6B905BF28B3F9D7003CA032 = {
 			isa = PBXGroup;
 			children = (
-				CE40BE6029313E4B005E0750 /* ProdutoModel+CoreDataClass.swift */,
-				CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */,
-				CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */,
-				CE40BE6329313E4B005E0750 /* ListaModel+CoreDataProperties.swift */,
 				C6B905CA28B3F9D8003CA032 /* MelhorPreco */,
 				C6B905C928B3F9D8003CA032 /* Products */,
 			);
@@ -104,18 +100,19 @@
 		C6B905CA28B3F9D8003CA032 /* MelhorPreco */ = {
 			isa = PBXGroup;
 			children = (
-				CE1CBC6E29157B3000341C6B /* ImageSelector.swift */,
-				CE9828742907154A0086888B /* Tela Principal */,
-				C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */,
-				C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */,
-				CEB6E60C2919745200E7EC5E /* Tela Gerencia de listas */,
-				CE1CBC7529158E2700341C6B /* Tela Lista Ediçao */,
-				CE98287C291040FA0086888B /* Tela Mercado */,
 				C6B905D428B3F9D8003CA032 /* Assets.xcassets */,
 				C6B905D628B3F9D8003CA032 /* LaunchScreen.storyboard */,
 				C6B905D928B3F9D8003CA032 /* Info.plist */,
+				CE1CBC6E29157B3000341C6B /* ImageSelector.swift */,
+				C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */,
+				C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */,
 				C622863C28BFDFC7005439E4 /* TabbarController.swift */,
 				CE982875290715660086888B /* Tela Lista */,
+				CE8F6C1A2934F37A00CC37F7 /* Model */,
+				CE9828742907154A0086888B /* Tela Principal */,
+				CEB6E60C2919745200E7EC5E /* Tela Gerencia de listas */,
+				CE1CBC7529158E2700341C6B /* Tela Lista Ediçao */,
+				CE98287C291040FA0086888B /* Tela Mercado */,
 				CE9828732907150F0086888B /* Tela Oferta */,
 			);
 			path = MelhorPreco;
@@ -129,6 +126,19 @@
 			);
 			name = "Tela Lista Ediçao";
 			path = "Tela Lista Ediçao";
+			sourceTree = "<group>";
+		};
+		CE8F6C1A2934F37A00CC37F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEB6E60D291974C900E7EC5E /* Model.xcdatamodeld */,
+				CE40BE6029313E4B005E0750 /* ProdutoModel+CoreDataClass.swift */,
+				CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */,
+				CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */,
+				CE40BE6329313E4B005E0750 /* ListaModel+CoreDataProperties.swift */,
+				CE8F6C1B2934F43400CC37F7 /* Model_aux.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		CE9828732907150F0086888B /* Tela Oferta */ = {
@@ -176,8 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				CEB6E60A291973D900E7EC5E /* VIewGerenciaListas.swift */,
-				CE40BE5E292D0865005E0750 /* DataManager.swift */,
-				CEB6E60D291974C900E7EC5E /* Model.xcdatamodeld */,
 			);
 			path = "Tela Gerencia de listas";
 			sourceTree = "<group>";
@@ -263,6 +271,7 @@
 				C622863D28BFDFC7005439E4 /* TabbarController.swift in Sources */,
 				CEB6E60F291974C900E7EC5E /* Model.xcdatamodeld in Sources */,
 				CE982877290C19530086888B /* lista.swift in Sources */,
+				CE8F6C1C2934F43400CC37F7 /* Model_aux.swift in Sources */,
 				CE81DD4B291828850045F6A0 /* tableViewListEdit.swift in Sources */,
 				CE40BE6629313E4B005E0750 /* ListaModel+CoreDataClass.swift in Sources */,
 				CEA71E2228E4C70C002F7A89 /* TableViewImageAd.swift in Sources */,
@@ -273,7 +282,6 @@
 				C6B905CC28B3F9D8003CA032 /* AppDelegate.swift in Sources */,
 				CE61085128F9CA5C009EDCA2 /* mercados.swift in Sources */,
 				C6B905CE28B3F9D8003CA032 /* SceneDelegate.swift in Sources */,
-				CE40BE5F292D0865005E0750 /* DataManager.swift in Sources */,
 				CE982879290C273F0086888B /* tableViewLista.swift in Sources */,
 				CEA7233D28E9C706002F7A89 /* TableViewTitle.swift in Sources */,
 				CE40BE6729313E4B005E0750 /* ListaModel+CoreDataProperties.swift in Sources */,
