@@ -42,7 +42,9 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
     // Atualiza os produtos da lista atual quando ele esta sendo editado
     func textFieldDidEndEditing(_ textField: UITextField) {
+        if(isProduto){
             produto!.name = textField.text!
+        }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

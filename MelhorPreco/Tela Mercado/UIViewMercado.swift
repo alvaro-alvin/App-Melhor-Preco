@@ -22,7 +22,9 @@ class UIViewMercado: UIViewController{
     lazy var imageViewMercado : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 10
+        image.layer.cornerRadius = 20
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.masksToBounds = true
         return image
     }()
@@ -167,7 +169,7 @@ class UIViewMercado: UIViewController{
             imageViewMercado.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             imageViewMercado.heightAnchor.constraint(equalToConstant: 160),
             imageViewMercado.widthAnchor.constraint(equalToConstant: 160),
-            imageViewMercado.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
+            imageViewMercado.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         ])
     }
     
@@ -239,7 +241,7 @@ class UIViewMercado: UIViewController{
     
     func configNomeLista(){
         NSLayoutConstraint.activate([
-            labelListaAtual.topAnchor.constraint(equalTo: imageViewMercado.bottomAnchor, constant: 20),
+            labelListaAtual.topAnchor.constraint(equalTo: imageViewMercado.bottomAnchor, constant: 40),
             labelListaAtual.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             labelListaAtual.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             labelListaAtual.heightAnchor.constraint(equalToConstant: 30)

@@ -21,7 +21,7 @@ class TabbarController:UITabBarController {
         
         let viewHome = UINavigationController(rootViewController: ViewController())
         let viewList = UINavigationController(rootViewController: UIViewLists())
-        let viewGas = UINavigationController(rootViewController: ViewGas())
+        let viewGas = UINavigationController(rootViewController: MapViewController())
         
         self.setViewControllers([viewGas, viewHome, viewList], animated: true)
         // define a home como tela inicial
@@ -64,7 +64,6 @@ class ViewGas:UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Gasolina"
-        self.view.backgroundColor = .white
     }
     
 }

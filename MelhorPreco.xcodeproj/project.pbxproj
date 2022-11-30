@@ -21,6 +21,7 @@
 		CE40BE6529313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */; };
 		CE40BE6629313E4B005E0750 /* ListaModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */; };
 		CE40BE6729313E4B005E0750 /* ListaModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40BE6329313E4B005E0750 /* ListaModel+CoreDataProperties.swift */; };
+		CE52C09E2937D00C00FDA64A /* MapViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52C09D2937D00C00FDA64A /* MapViewContoller.swift */; };
 		CE61084F28EB550C009EDCA2 /* UIViewOferta.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61084E28EB550C009EDCA2 /* UIViewOferta.swift */; };
 		CE61085128F9CA5C009EDCA2 /* mercados.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61085028F9CA5C009EDCA2 /* mercados.swift */; };
 		CE61085328F9CCA2009EDCA2 /* TableViewMercado.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */; };
@@ -54,6 +55,7 @@
 		CE40BE6129313E4B005E0750 /* ProdutoModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProdutoModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE40BE6229313E4B005E0750 /* ListaModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListaModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CE40BE6329313E4B005E0750 /* ListaModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListaModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CE52C09D2937D00C00FDA64A /* MapViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContoller.swift; sourceTree = "<group>"; };
 		CE61084E28EB550C009EDCA2 /* UIViewOferta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewOferta.swift; sourceTree = "<group>"; };
 		CE61085028F9CA5C009EDCA2 /* mercados.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mercados.swift; sourceTree = "<group>"; };
 		CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewMercado.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				CE1CBC7529158E2700341C6B /* Tela Lista Ediçao */,
 				CE98287C291040FA0086888B /* Tela Mercado */,
 				CE9828732907150F0086888B /* Tela Oferta */,
+				CE52C09D2937D00C00FDA64A /* MapViewContoller.swift */,
 			);
 			path = MelhorPreco;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				CE982877290C19530086888B /* lista.swift in Sources */,
 				CE8F6C1C2934F43400CC37F7 /* Model_aux.swift in Sources */,
 				CE81DD4B291828850045F6A0 /* tableViewListEdit.swift in Sources */,
+				CE52C09E2937D00C00FDA64A /* MapViewContoller.swift in Sources */,
 				CE40BE6629313E4B005E0750 /* ListaModel+CoreDataClass.swift in Sources */,
 				CEA71E2228E4C70C002F7A89 /* TableViewImageAd.swift in Sources */,
 				C6E8A44128BD30FF00BBF5B8 /* TableViewOferta.swift in Sources */,
