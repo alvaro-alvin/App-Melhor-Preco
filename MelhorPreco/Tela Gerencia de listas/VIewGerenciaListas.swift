@@ -27,20 +27,23 @@ class ViewGerenciaListas: UIViewController {
         do {
             listasCore = try managedContext.fetch(ListaModel.fetchRequest())
             DispatchQueue.main.async {
-                self.tabelaOfertas.reloadData()
+                self.tabelaListas.reloadData()
             }
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      reloadTableData()
-      
-    }
+    
+    // CONFIGURANDO BOTAO DE CADASTRO DE NOVA LISTA
+    
+    lazy var addButton : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Nova Lista", style: .plain, target: self, action: #selector(create))
+        button.image = UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        return button
+    }()
 
-    lazy var tabelaOfertas : UITableView = {
+    lazy var tabelaListas : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
@@ -48,32 +51,17 @@ class ViewGerenciaListas: UIViewController {
         table.isScrollEnabled = true
         table.delegate = self
         table.dataSource = self
-        table.register(TableViewListEdit.self, forCellReuseIdentifier: TableViewListEdit.identifier)
+        table.register(TableViewListShort.self, forCellReuseIdentifier: TableViewListShort.identifier)
         table.showsVerticalScrollIndicator = false
         return table
     }()
     
-    lazy var  buttonAdd : UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        return button
-    }()
-    
-    
-    lazy var  buttonSelect : UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(systemName: "doc.text.magnifyingglass")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        return button
-    }()
-    
     @objc func create(sender: UIButton!) {
-        let alert = UIAlertController(title: "New Name",
-                                      message: "Add a new name",
+        let alert = UIAlertController(title: "Nova lista",
+                                      message: "Digite o nome da nova lista",
                                       preferredStyle: .alert)
         
-        let saveAction = UIAlertAction(title: "Save",
+        let saveAction = UIAlertAction(title: "Adicionar",
                                        style: .default) {
           [unowned self] action in
                                         
@@ -85,7 +73,7 @@ class ViewGerenciaListas: UIViewController {
             self.save(name: nameToSave)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: "Cancelar",
                                          style: .cancel)
         
         alert.addTextField()
@@ -193,53 +181,32 @@ class ViewGerenciaListas: UIViewController {
       return fetchedProducts
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      reloadTableData()
+      
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "Gerencia Listas"
+        self.title = "Listas"
         
+        self.navigationItem.rightBarButtonItem  = addButton
         
-        self.view.addSubview(buttonAdd)
-        self.view.addSubview(buttonSelect)
-        self.view.addSubview(tabelaOfertas)
+        self.view.addSubview(tabelaListas)
         
-        buttonAdd.addTarget(self, action: #selector(create), for: .touchUpInside)
-        buttonSelect.addTarget(self, action: #selector(search), for: .touchUpInside)
-        
-        
-        setupButtonAdd()
-        setupButtonSelect()
         setupTabelaOferta()
         
         view.backgroundColor = .white
         }
-    
-    
-    private func setupButtonAdd() {
-        NSLayoutConstraint.activate([
-            buttonAdd.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            buttonAdd.widthAnchor.constraint(equalToConstant: 25),
-            buttonAdd.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            buttonAdd.heightAnchor.constraint(equalToConstant: 25)
-        ])
-    }
-    
-    private func setupButtonSelect() {
-        NSLayoutConstraint.activate([
-            buttonSelect.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            buttonSelect.widthAnchor.constraint(equalToConstant: 25),
-            buttonSelect.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            buttonSelect.heightAnchor.constraint(equalToConstant: 25)
-        ])
-    }
-
     private func setupTabelaOferta() {
         NSLayoutConstraint.activate([
-            tabelaOfertas.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tabelaOfertas.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            tabelaOfertas.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            tabelaOfertas.bottomAnchor.constraint(equalTo: buttonAdd.topAnchor)
+            tabelaListas.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabelaListas.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tabelaListas.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tabelaListas.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
@@ -251,12 +218,12 @@ extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISear
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(
-                        withIdentifier: TableViewListEdit.identifier,
+                        withIdentifier: TableViewListShort.identifier,
                         for: indexPath
-                        ) as? TableViewListEdit else {
+                        ) as? TableViewListShort else {
                     return UITableViewCell()}
             let lista = listasCore[indexPath.row]
-            cell.textProduto.text = lista.value(forKey: "name") as? String
+            cell.listName.text = lista.value(forKey: "name") as? String
             return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
