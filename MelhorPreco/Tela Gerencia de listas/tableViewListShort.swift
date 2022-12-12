@@ -12,6 +12,16 @@ class TableViewListShort : UITableViewCell{
     
     static let identifier : String = "TableViewListShort"
     
+    weak var delegate: CustomTableViewCellDelegate?
+    
+    @objc func buttonClicked(sender: UIButton) {
+        
+        if sender == checkMark {
+            delegate?.updateListaAtual(for: self)
+            checkMark.isChecked = !checkMark.isChecked
+        }
+    }
+    
     var listName : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +46,7 @@ class TableViewListShort : UITableViewCell{
         let check = CheckRadio()
         check.translatesAutoresizingMaskIntoConstraints = false
         check.awakeFromNib()
+        check.addTarget(nil, action:#selector(buttonClicked), for: .touchUpInside)
         return check
     }()
     
@@ -48,11 +59,14 @@ class TableViewListShort : UITableViewCell{
         self.contentView.addSubview(listName)
         self.contentView.addSubview(checkMark)
         
+        checkMark.associatedName = listName.text
+        
         configBG()
         configListName()
         configCheckMark()
         
     }
+    
     
     func configBG(){
         NSLayoutConstraint.activate([
@@ -101,10 +115,13 @@ class CheckRadio: UIButton {
     //let checkedImage = UIImage(systemName: "largecircle.fill.circle")! as UIImage
     //let uncheckedImage = UIImage(systemName: "circle")! as UIImage
     
+    var associatedName: String?
+    
     // Bool property
     var isChecked: Bool = false {
         didSet {
             if isChecked == true {
+                UserDefaults.standard.set(associatedName, forKey: "listaAtual")
                 self.setImage(checkedImage, for: .normal)
             } else {
                 self.setImage(uncheckedImage, for: .normal)
@@ -113,14 +130,9 @@ class CheckRadio: UIButton {
     }
         
     override func awakeFromNib() {
-        self.addTarget(self, action:#selector(buttonClicked), for: .touchUpInside)
+        //self.addTarget(self, action:#selector(buttonClicked), for: .touchUpInside)
         self.isChecked = false
     }
-        
-    @objc func buttonClicked(sender: UIButton) {
-        if sender == self {
-            isChecked = !isChecked
-        }
-    }
+    
 }
 

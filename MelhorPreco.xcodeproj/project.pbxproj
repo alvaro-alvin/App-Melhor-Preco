@@ -107,18 +107,18 @@
 				C6B905D428B3F9D8003CA032 /* Assets.xcassets */,
 				C6B905D628B3F9D8003CA032 /* LaunchScreen.storyboard */,
 				C6B905D928B3F9D8003CA032 /* Info.plist */,
+				CE8F6C1A2934F37A00CC37F7 /* Model */,
 				CE1CBC6E29157B3000341C6B /* ImageSelector.swift */,
 				C6B905CB28B3F9D8003CA032 /* AppDelegate.swift */,
 				C6B905CD28B3F9D8003CA032 /* SceneDelegate.swift */,
 				C622863C28BFDFC7005439E4 /* TabbarController.swift */,
-				CE982875290715660086888B /* Tela Lista */,
-				CE8F6C1A2934F37A00CC37F7 /* Model */,
+				CEA3F875294762C700430328 /* Tela mapa */,
 				CE9828742907154A0086888B /* Tela Principal */,
+				CE982875290715660086888B /* Tela Lista */,
 				CEB6E60C2919745200E7EC5E /* Tela Gerencia de listas */,
 				CE1CBC7529158E2700341C6B /* Tela Lista Ediçao */,
 				CE98287C291040FA0086888B /* Tela Mercado */,
 				CE9828732907150F0086888B /* Tela Oferta */,
-				CE52C09D2937D00C00FDA64A /* MapViewContoller.swift */,
 			);
 			path = MelhorPreco;
 			sourceTree = "<group>";
@@ -185,6 +185,14 @@
 				CE98287A291040DB0086888B /* UIViewMercado.swift */,
 			);
 			path = "Tela Mercado";
+			sourceTree = "<group>";
+		};
+		CEA3F875294762C700430328 /* Tela mapa */ = {
+			isa = PBXGroup;
+			children = (
+				CE52C09D2937D00C00FDA64A /* MapViewContoller.swift */,
+			);
+			path = "Tela mapa";
 			sourceTree = "<group>";
 		};
 		CEB6E60C2919745200E7EC5E /* Tela Gerencia de listas */ = {

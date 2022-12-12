@@ -39,6 +39,7 @@ class UIViewLists: UIViewController{
     
     @objc func goToGerencia(sender: UIButton!) {
         let gerenciaView = ViewGerenciaListas()
+        //gerenciaView.nome_lista_atual = listaAtual?.name
         navigationController?.pushViewController(gerenciaView, animated: true)
     }
     
@@ -46,12 +47,12 @@ class UIViewLists: UIViewController{
     @objc func checkAction(sender : UITapGestureRecognizer) {
         let editorView = UIViewListEditor()
         editorView.listaAtual = self.listaAtual
-        editorView.index = 0
         navigationController?.pushViewController(editorView, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        listaAtual = dataManager.saveNewLista(Titulo: defaults.string(forKey: "listaAtual")!, context: managedContext)
         self.tituloListaAtual.text = listaAtual!.name
         self.tableLista.reloadData()
     }

@@ -18,12 +18,15 @@ class ViewGerenciaListas: UIViewController {
     
     //var listas = loadJson(filename: "listas")
     
-    var listasCore : [NSManagedObject] = []
+    let defaults = UserDefaults.standard
+    
+    var listasCore : [ListaModel] = []
+    
     
     let managedContext =
       (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    func reloadTableData(){
+    func fullReloadTableData(){
         do {
             listasCore = try managedContext.fetch(ListaModel.fetchRequest())
             DispatchQueue.main.async {
@@ -92,7 +95,7 @@ class ViewGerenciaListas: UIViewController {
       // salva lista criada
       do {
         try managedContext.save()
-        reloadTableData()
+          fullReloadTableData()
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
@@ -183,7 +186,7 @@ class ViewGerenciaListas: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-      reloadTableData()
+        fullReloadTableData()
       
     }
     
@@ -211,7 +214,17 @@ class ViewGerenciaListas: UIViewController {
     }
 }
 
-extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
+protocol CustomTableViewCellDelegate: AnyObject {
+    func updateListaAtual(for cell: TableViewListShort)
+}
+
+extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CustomTableViewCellDelegate {
+    func updateListaAtual(for cell: TableViewListShort) {
+        //code
+        fullReloadTableData()
+        print("deu reload")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return listasCore.count
     }
@@ -223,7 +236,17 @@ extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISear
                         ) as? TableViewListShort else {
                     return UITableViewCell()}
             let lista = listasCore[indexPath.row]
-            cell.listName.text = lista.value(forKey: "name") as? String
+            cell.delegate = self
+            cell.listName.text = lista.name
+            cell.checkMark.associatedName = lista.name
+        if(lista.name == defaults.string(forKey: "listaAtual")){
+            cell.checkMark.isChecked = true
+            print("tenho \(lista.name!) é \(defaults.string(forKey: "listaAtual")!) - OK MARCADO")
+        }
+        else{
+            cell.checkMark.isChecked = false
+            print("tenho \(lista.name!) é \(defaults.string(forKey: "listaAtual")!) - NÃO MARCADO")
+        }
             return cell
         }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
@@ -232,9 +255,28 @@ extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISear
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        let editorView = UIViewListEditor()
+        editorView.listaAtual = listasCore[indexPath.row]
+        navigationController?.pushViewController(editorView, animated: true)
     }
-     
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // deleta o objeto do coreData
+            managedContext.delete(listasCore[indexPath.row])
+            // salva as aletrações e recarrega a tabela
+            do {
+                try managedContext.save()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+
+                fullReloadTableData()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
+    }
 }
-
-
