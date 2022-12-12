@@ -54,6 +54,7 @@ class UIViewLists: UIViewController{
         super.viewWillAppear(animated)
         listaAtual = dataManager.saveNewLista(Titulo: defaults.string(forKey: "listaAtual")!, context: managedContext)
         self.tituloListaAtual.text = listaAtual!.name
+        produtos = dataManager.produtosFrom(lista: listaAtual!, context: managedContext)
         self.tableLista.reloadData()
     }
     
