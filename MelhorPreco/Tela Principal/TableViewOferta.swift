@@ -5,11 +5,15 @@
 //  Created by user219712 on 8/29/22.
 //
 
+// Celula da tabela que contém as informações de cada oferta
+
 import UIKit
 
 class TableViewOferta : UITableViewCell {
     
     static let identifier : String = "TableViewOferta"
+    
+    // é dividida em duas celulas para facilitar a organização
     
     var celulaEsquerda : UIView = {
         let celula = UIView()
@@ -25,7 +29,7 @@ class TableViewOferta : UITableViewCell {
         return celula
     }()
     
-    
+    // imagem do produto
     var imageViewProduto : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +39,7 @@ class TableViewOferta : UITableViewCell {
         return image
     }()
     
+    // nome do produto
     var labelNome : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +49,7 @@ class TableViewOferta : UITableViewCell {
         return nome
     }()
     
+    // Preço do produto
     var textPreco : UILabel = {
         let preco = UILabel()
         preco.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +61,8 @@ class TableViewOferta : UITableViewCell {
         return preco
     }()
     
-    var textNomeEstabelecimento : UILabel = {
+    // nome do estabelecimento
+    var nomeEstabelecimento : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = "       "
@@ -66,7 +73,8 @@ class TableViewOferta : UITableViewCell {
         return nome
     }()
     
-    var textAbaixoDaMedia : UILabel = {
+    // label "Abaixo da média"
+    var labelAbaixoDaMedia : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = ""
@@ -80,7 +88,7 @@ class TableViewOferta : UITableViewCell {
         return nome
     }()
     
-    
+    // label da porcentagem
     var labelPorcentagem : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -93,26 +101,31 @@ class TableViewOferta : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        // configuração da view principal
         self.backgroundColor = .white
         self.selectionStyle = .none
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
+        
+        // adicionando elementos
         self.contentView.addSubview(imageViewProduto)
         self.contentView.addSubview(celulaDireita)
         self.contentView.addSubview(celulaEsquerda)
         self.contentView.addSubview(labelNome)
-        self.contentView.addSubview(textNomeEstabelecimento)
+        self.contentView.addSubview(nomeEstabelecimento)
         self.contentView.addSubview(textPreco)
         self.contentView.addSubview(labelPorcentagem)
-        self.contentView.addSubview(textAbaixoDaMedia)
+        self.contentView.addSubview(labelAbaixoDaMedia)
+        
+        // configurando elementos
         configImageView()
         configCelulaDireita()
         configCelulaEsquerda()
         configLabelNome()
-        configTextEstabelecimento()
+        configEstabelecimento()
         configTextPreco()
         configLabelPorcentagem()
-        configTextMedia()
+        configLabelMedia()
         
     }
     
@@ -151,7 +164,7 @@ class TableViewOferta : UITableViewCell {
     func configTextPreco(){
         NSLayoutConstraint.activate([
             textPreco.topAnchor.constraint(equalTo: labelNome.bottomAnchor),
-            textPreco.bottomAnchor.constraint(equalTo: textNomeEstabelecimento.topAnchor),
+            textPreco.bottomAnchor.constraint(equalTo: nomeEstabelecimento.topAnchor),
             textPreco.leadingAnchor.constraint(equalTo: celulaEsquerda.leadingAnchor),
             textPreco.trailingAnchor.constraint(equalTo: celulaEsquerda.trailingAnchor)
 
@@ -159,12 +172,12 @@ class TableViewOferta : UITableViewCell {
         
     }
     
-    func configTextEstabelecimento(){
+    func configEstabelecimento(){
         NSLayoutConstraint.activate([
-            textNomeEstabelecimento.bottomAnchor.constraint(equalTo: celulaEsquerda.bottomAnchor),
-            textNomeEstabelecimento.trailingAnchor.constraint(equalTo: celulaEsquerda.trailingAnchor),
-            textNomeEstabelecimento.leadingAnchor.constraint(equalTo: celulaEsquerda.leadingAnchor),
-            textNomeEstabelecimento.heightAnchor.constraint(equalToConstant: 25)
+            nomeEstabelecimento.bottomAnchor.constraint(equalTo: celulaEsquerda.bottomAnchor),
+            nomeEstabelecimento.trailingAnchor.constraint(equalTo: celulaEsquerda.trailingAnchor),
+            nomeEstabelecimento.leadingAnchor.constraint(equalTo: celulaEsquerda.leadingAnchor),
+            nomeEstabelecimento.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     
@@ -177,12 +190,12 @@ class TableViewOferta : UITableViewCell {
         
     }
     
-    func configTextMedia(){
+    func configLabelMedia(){
         NSLayoutConstraint.activate([
-            textAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor, constant: -10),
-            textAbaixoDaMedia.bottomAnchor.constraint(equalTo: imageViewProduto.bottomAnchor),
-            textAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor, constant: 22),
-            textAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor, constant: -22)
+            labelAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor, constant: -10),
+            labelAbaixoDaMedia.bottomAnchor.constraint(equalTo: imageViewProduto.bottomAnchor),
+            labelAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor, constant: 22),
+            labelAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor, constant: -22)
             
         ])
     }
@@ -194,6 +207,7 @@ class TableViewOferta : UITableViewCell {
     
 }
 
+// função auxiliar para limitar tamanho de strings
 extension String {
     func shorted(to symbols: Int) -> String {
         guard self.count > symbols else {

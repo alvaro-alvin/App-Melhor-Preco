@@ -5,29 +5,30 @@
 //  Created by user on 28/10/22.
 //
 
-// AINDA NAO ESTA SENDO USADO...
-
-import Foundation
+/*
+    Tela onde é mostrada a lista principal e os mercados recomendados para as compras
+    dos produtos desta lista, tabém é possivel a partir desta, editar a lista atual
+    e acessar todas as listas
+*/
 import UIKit
 
 class UIViewLists: UIViewController{
     
-    
+    // O objeto da lista atual (coreData)
     public var listaAtual: ListaModel?
-    
+    // O gerenciador de dados (classe com funções auxiliares)
     let dataManager = DataManager()
-    
+    // contexto do coreData
     let managedContext =
       (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    // User Defaults para informações não tão importantes, como lista atual e a flag de primeiro acesso
     let defaults = UserDefaults.standard
-    
-    var itemsListas = loadJson(filename: "listas")
-    
+    // lista de mercados mocadas obtidas de um .json
     var itemsMercados = listaMercadosLista
-    
+    // produtos presentes na lista atual
     lazy var produtos: [ProdutoModel] = []
     
+    // botão que leva a tela de gerenciamento de listas
     lazy var buttonListas : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -36,20 +37,21 @@ class UIViewLists: UIViewController{
         button.setTitle("Gerenciar listas", for: .normal)
         return button
     }()
-    
+    // função do botão de gerenciamento de listas
     @objc func goToGerencia(sender: UIButton!) {
         let gerenciaView = ViewGerenciaListas()
         //gerenciaView.nome_lista_atual = listaAtual?.name
         navigationController?.pushViewController(gerenciaView, animated: true)
     }
     
-    //ação quando a lista atual for tocada
+    // ação quando a lista atual for tocada, vai para a edição
     @objc func checkAction(sender : UITapGestureRecognizer) {
         let editorView = UIViewListEditor()
         editorView.listaAtual = self.listaAtual
         navigationController?.pushViewController(editorView, animated: true)
     }
     
+    // ao voltar para essa tela as informações da lista precisam ser atulizadas
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         listaAtual = dataManager.saveNewLista(Titulo: defaults.string(forKey: "listaAtual")!, context: managedContext)
@@ -58,7 +60,7 @@ class UIViewLists: UIViewController{
         self.tableLista.reloadData()
     }
     
-    
+    // view da lista atual
     lazy var viewListaAtual : UIView = {
         let view = UIView()
 
@@ -69,9 +71,8 @@ class UIViewLists: UIViewController{
         view.layer.cornerRadius = 20
         return view
     }()
-
-
     
+    // separador utilizado na visualização da lista atual
     lazy var separador : UIView = {
         let separador = UIView()
         separador.backgroundColor = UIColor(named: "AccentColor")
@@ -79,6 +80,7 @@ class UIViewLists: UIViewController{
         return separador
     }()
     
+    // titulo da lista atual
     lazy var tituloListaAtual : UILabel = {
         let titulo = UILabel()
         titulo.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +88,7 @@ class UIViewLists: UIViewController{
         return titulo
         
     }()
-    
+    // tabela utilziada para mostrar os produtos da lista
     lazy var tableLista : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -100,6 +102,7 @@ class UIViewLists: UIViewController{
         return table
     }()
     
+    // label "Estabelecimentos indicados"
     lazy var Estabelecimentos_indicados : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +115,7 @@ class UIViewLists: UIViewController{
     }()
     
 
-
+    // tabela com os mercados indicados
     lazy var tabelaMercados : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -128,30 +131,36 @@ class UIViewLists: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // caso seja a primeira vez que o usuario abre o app, são carregados para o coreData um conjunto de listas mocadas em um .json e a lista atual é definida como a primeira.
         if(!isKeyPresentInUserDefaults(key: "firstTime") || defaults.bool(forKey: "firstTime") == true){
+            let itemsListas = loadJson(filename: "listas")
             dataManager.load2Core(Array: itemsListas!, context: managedContext)
             listaAtual = dataManager.saveNewLista(Titulo: itemsListas![0].nome, context: managedContext)
             defaults.set(itemsListas![0].nome, forKey: "listaAtual")
             defaults.set(false, forKey: "firstTime")
         }
+        // caso não seja a lista atual é obtida do coreData
         else{
             listaAtual = dataManager.saveNewLista(Titulo: defaults.string(forKey: "listaAtual")!, context: managedContext)
         }
-        // Do any additional setup after loading the view.
-
+        // define o título da view
         self.title = "Listas e compras"
         
+        // produtos extraidos da lista
         produtos = dataManager.produtosFrom(lista: listaAtual!, context: managedContext)
         
+        // titulo da lista configurado
         tituloListaAtual.text = listaAtual?.name
         
+        // função de tocar na lista
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         viewListaAtual.addGestureRecognizer(gesture)
         
+        // função definida para o bottão de gerencia de listas
         buttonListas.addTarget(self, action: #selector(goToGerencia), for: .touchUpInside)
         
         
-
+        // adicionando elementos
         self.view.addSubview(buttonListas)
         self.view.addSubview(viewListaAtual)
         self.viewListaAtual.addSubview(separador)
@@ -159,6 +168,8 @@ class UIViewLists: UIViewController{
         self.viewListaAtual.addSubview(tableLista)
         self.view.addSubview(Estabelecimentos_indicados)
         self.view.addSubview(tabelaMercados)
+        
+        // configurando elementos
         configButtonListas()
         configListView()
         configSeparador()
@@ -166,8 +177,7 @@ class UIViewLists: UIViewController{
         configTableLista()
         configLabelIndicados()
         configTableMercado()
-        
-                
+
         view.backgroundColor = .white
         }
 
@@ -236,7 +246,7 @@ class UIViewLists: UIViewController{
     
     }
 }
-
+// gerenciamento das listas
 extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -281,11 +291,11 @@ extension UIViewLists: UITableViewDelegate, UITableViewDataSource{
                     print(mercado)
             cell.imageViewProduto.image  = UIImage(named: mercado.imagem)
             cell.labelNome.text = mercado.nome
-            cell.textPreco.text = "R$" + mercado.preco
+            cell.labelPreco.text = "R$" + mercado.preco
             cell.labelPorcentagem.text =  mercado.porcentagem + "%"
-            cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
+            cell.labelAbaixoDaMedia.text = "Abaixo da\nmédia"
             if(indexPath.row == 0){
-                cell.textAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
+                cell.labelAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
                 cell.labelPorcentagem.textColor = UIColor(named: "verde_oferta")
             }
             return cell

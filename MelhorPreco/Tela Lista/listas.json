@@ -1,6 +1,6 @@
 [
 {
-    "nome": "Lista 1",
+    "nome": "Lista Geral",
     "produtos": [
         "Amaciante",
         "Desodorante",
@@ -14,7 +14,7 @@
         ]
 },
 {
-    "nome": "Lista 2",
+    "nome": "Comida Básica",
     "produtos": [
         "Alface",
         "Tomate",
@@ -24,7 +24,7 @@
         ]
 },
 {
-    "nome": "Lista 3",
+    "nome": "Limpeza",
     "produtos": [
         "Limpa vidros",
         "Desinfetante",
@@ -34,7 +34,7 @@
         ]
 },
 {
-    "nome": "Lista 4",
+    "nome": "Birl",
     "produtos": [
         "Peito de frango",
         "Batata doce",
@@ -43,7 +43,7 @@
         ]
 },
 {
-    "nome": "Lista 5",
+    "nome": "Nenê",
     "produtos": [
         "Leite em pó",
         "Fraldas",
@@ -52,7 +52,7 @@
         ]
 },
 {
-    "nome": "Lista 6",
+    "nome": "Café da manha 1",
     "produtos": [
         "Presunto",
         "Queijo",
@@ -61,7 +61,7 @@
         ]
 },
 {
-    "nome": "Lista 7",
+    "nome": "Café da manha 2",
     "produtos": [
         "Nescau",
         "Leite",

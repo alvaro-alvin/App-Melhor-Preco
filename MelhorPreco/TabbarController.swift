@@ -33,8 +33,11 @@ class TabbarController:UITabBarController {
         // define a cor de fundo
         self.tabBar.backgroundColor = UIColor.white
 
+        self.tabBar.items?[0].title = "Região"
+        self.tabBar.items?[1].title = "Ofertas"
+        self.tabBar.items?[2].title = "Listas e compras"
         
-        self.tabBar.items?[0].image = UIImage(systemName: "car")
+        self.tabBar.items?[0].image = UIImage(systemName: "safari")
         self.tabBar.items?[1].image = UIImage(systemName: "house")
         self.tabBar.items?[2].image = UIImage(systemName: "cart")
     }

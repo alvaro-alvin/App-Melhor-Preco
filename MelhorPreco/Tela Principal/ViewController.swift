@@ -5,18 +5,27 @@
 //  Created by user219712 on 8/22/22.
 //
 
+/*
+ Tela inicial do aplicativo, contém uma lista de todas as ofertas, é possível utilizar
+ a barra de pesquisa para encontrar produtos específicos, também é possivel a partir
+ dessa tela cadastrar preços de produtos
+*/
+
 import Foundation
 import UIKit
 import SwiftUI
 
 class ViewController: UIViewController {
     
+    // array com todas as ofertas, obtidas a partir de um json mocado
     var items = listaOfertas
     
+    // itens que aparecen dentro dos resultados da pesquisa
     var itemsFiltrados: [Oferta] = []
     
     // CONFIGURACAO DO MENU DE CADASTRAR PRECOS
     
+    // struc utilizada pelo cadastro via fotografia
     struct ImagePickerView: UIViewControllerRepresentable {
 
         @Binding var selectedImage: UIImage?
@@ -34,6 +43,8 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // primeira opção do menu de cadastro de preços, manual (funcionalidade ainda não implementada)
     private lazy var first = UIAction(title: "Manualmente", image: UIImage(systemName: "square.and.pencil"), attributes: [], state: .off)
     {
         action in print ("adicao manual")
@@ -43,6 +54,7 @@ class ViewController: UIViewController {
         //navigationController?.pushViewController(cadastroManualView, animated: true)
     }
     
+    // segunda opção do menu de cadastro de preços, por fotografia
     private lazy var second = UIAction(title: "Por foto", image: UIImage(systemName: "camera"), attributes: [], state: .off)
     {
         action in print ("adicao por foto")
@@ -50,12 +62,15 @@ class ViewController: UIViewController {
         // futuro: {image in <lugar onde a imagem sera armazenada> = image}
     }
     
+    // elementos do menu de cadastro
     private lazy var elements:[UIAction] = [first, second]
     
+    // menu de cadastro
     private lazy var menu = UIMenu(title: "Cadastrar preços", children: elements)
     
     // CONFIGURANDO BOTAO DE CADASTRAR PRECOS
     
+    // Botão da barra de navegação de cadastro que vai abrigar o menu de cadastro
     lazy var addButton : UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Cadastrar Preços", image: UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: nil, menu: menu)
 
@@ -66,6 +81,7 @@ class ViewController: UIViewController {
     }()
     
     // CONFIGURACAO DO BOTAO DE PERFIL
+    // Botão da barra de navegação que leva o usuário até a tela de perfil (não implementada)
     let profileButton : UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "person.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .plain, target: nil, action: nil)
 
@@ -76,6 +92,7 @@ class ViewController: UIViewController {
         return button
     }()
     
+    // logo do aplicativo que esta no centro da barra de navegação
     let logoImage : UIImageView = {
         let image = UIImageView()
         //image.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +105,8 @@ class ViewController: UIViewController {
         image.contentMode = .scaleAspectFit
         return image
     }()
+    
+    // barra de pesquisa
     let searchBar : UISearchBar = {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +115,7 @@ class ViewController: UIViewController {
         return bar
     }()
     
+    // tabela que apresenta os resultados da barra de pesquisa
     lazy var tabelaSearchBar : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -115,6 +135,8 @@ class ViewController: UIViewController {
     // Class variable heightOfTableViewConstraint set to 1000
     var heightOfTableViewConstraint : NSLayoutConstraint!
     
+    
+    // tabela de ofertas
     lazy var tabelaOfertas : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -131,27 +153,28 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // define titulo para a view
         self.title = "Ofertas"
+        // define a view como delegate para a barra de pesquisa
         self.searchBar.delegate = self
 
-
+        // configura a barra de navegação
         self.navigationItem.rightBarButtonItem  = addButton
         self.navigationItem.leftBarButtonItem  = profileButton
         self.navigationItem.titleView = logoImage
-
+        
+        
+        // adiciona elementos à view
         self.view.addSubview(searchBar)
         self.view.addSubview(tabelaOfertas)
         self.view.addSubview(tabelaSearchBar)
-        tabelaSearchBar.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
+        // configurações para permitir a natureza de auto dimensionamento da tabela de resultados da pesquisa
+        tabelaSearchBar.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         heightOfTableViewConstraint = NSLayoutConstraint(item: self.tabelaSearchBar, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.0, constant: 1000)
         self.view.addConstraint(heightOfTableViewConstraint)
         
-        //setupNavBar()
-        //setupProfileButton()
-        //setupAddButton()
-        //setupLogoImage()
+        // configura elementos da view
         setupSearchBar()
         setupTabelaSearchBar()
         setupTabelaOferta()
@@ -162,7 +185,7 @@ class ViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         //tabelaSearchBar.removeObserver(self, forKeyPath: "contentSize") // isso só deve ser feito caso a view seja carregada novamente
     }
-    
+    // observa o valor do tamanho da tabela para fazer o redimensionamento sob demanda
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
             if keyPath == "contentSize"{
                 if object is UITableView{
@@ -173,23 +196,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-    	
-    
-    private func setupNavBar(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .plain, target: self, action: nil)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), style: .plain, target: self, action: nil)    }
-    
-    private func setupLogoImage() {
-    
-        NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImage.heightAnchor.constraint(equalToConstant: 45),
-            logoImage.widthAnchor.constraint(equalToConstant: 100)
-        ])
-    }
-     
+
     
     private func setupSearchBar() {
         NSLayoutConstraint.activate([
@@ -217,10 +224,11 @@ class ViewController: UIViewController {
     }
 }
 
+// gerenciamneto da tabela de ofertas, que além de abrigar as ofertas também abriga o banner de promoções e a label de "Principais ofertas"
 extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if(tableView == tabelaOfertas){
-            return items.count + 2 // + 1 carrocel ofertas, + 1 titulo
+            return items.count + 2 // + 1 carrocel ofertas, + 1 titulo = 2
         }
         if(tableView == tabelaSearchBar){
             return itemsFiltrados.count
@@ -257,9 +265,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBa
             cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
             cell.labelNome.text = oferta.nome.shorted(to: 15)
             cell.textPreco.text = "R$" + oferta.preco
-            cell.textNomeEstabelecimento.text = oferta.estabelecimento
+            cell.nomeEstabelecimento.text = oferta.estabelecimento
             cell.labelPorcentagem.text =  oferta.porcentagem + "%"
-            cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
+            cell.labelAbaixoDaMedia.text = "Abaixo da\nmédia"
             return cell
         }
         // Tabela da barra de pesquisa
@@ -274,9 +282,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBa
             cell.imageViewProduto.image  = UIImage(named: oferta.imagem)
             cell.labelNome.text = oferta.nome.shorted(to: 15)
             cell.textPreco.text = "R$" + oferta.preco
-            cell.textNomeEstabelecimento.text = oferta.estabelecimento
+            cell.nomeEstabelecimento.text = oferta.estabelecimento
             cell.labelPorcentagem.text =  oferta.porcentagem + "%"
-            cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
+            cell.labelAbaixoDaMedia.text = "Abaixo da\nmédia"
             //self.tabelaSearchBar.sizeToFit()
             return cell
         }
@@ -350,7 +358,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UISearchBa
         searchBar.resignFirstResponder()
         itemsFiltrados = []
         tabelaSearchBar.reloadData()
-        //tabelaSearchBar.sizeToFit()
     }
      
 }

@@ -12,7 +12,7 @@ class TableViewImageAd : UITableViewCell {
     
     static let identifier : String = "TableViewImageAd"
        
-    
+    // imagem do banner
     var imageViewAd : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -25,11 +25,15 @@ class TableViewImageAd : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //self.backgroundColor = .blue
-        self.contentView.addSubview(imageViewAd)
+        
+        // configura view
         self.backgroundColor = .white
         self.selectionStyle = .none
         
+        // adiciona elemento
+        self.contentView.addSubview(imageViewAd)
+    
+        // configura elemento
         configImageView()
     }
     

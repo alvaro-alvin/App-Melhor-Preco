@@ -5,6 +5,8 @@
 //  Created by user on 28/10/22.
 //
 
+// Classe de lista que pode ler e escrever jsons
+
 import Foundation
 
 struct Lista : Codable {

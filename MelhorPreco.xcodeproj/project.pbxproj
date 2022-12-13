@@ -149,9 +149,9 @@
 		CE9828732907150F0086888B /* Tela Oferta */ = {
 			isa = PBXGroup;
 			children = (
+				CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */,
 				CE61084E28EB550C009EDCA2 /* UIViewOferta.swift */,
 				CE61085028F9CA5C009EDCA2 /* mercados.swift */,
-				CE61085228F9CCA2009EDCA2 /* TableViewMercado.swift */,
 			);
 			path = "Tela Oferta";
 			sourceTree = "<group>";

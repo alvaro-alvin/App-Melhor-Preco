@@ -12,20 +12,17 @@ import CoreData
 
 class ViewGerenciaListas: UIViewController {
     
-    //var items = listaOfertas
-    
-    //var itemsFiltrados: [Oferta] = []
-    
-    //var listas = loadJson(filename: "listas")
-    
+    // User Defaults, para ver lista atual
     let defaults = UserDefaults.standard
     
+    // Array com todas as listas
     var listasCore : [ListaModel] = []
     
-    
+    // Contexto do coreData
     let managedContext =
       (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    // recarregamento da tabela de listas
     func fullReloadTableData(){
         do {
             listasCore = try managedContext.fetch(ListaModel.fetchRequest())
@@ -39,13 +36,14 @@ class ViewGerenciaListas: UIViewController {
     
     
     // CONFIGURANDO BOTAO DE CADASTRO DE NOVA LISTA
-    
+    // Botão na barra de navegação para a adicção de nova lista
     lazy var addButton : UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Nova Lista", style: .plain, target: self, action: #selector(create))
         button.image = UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         return button
     }()
-
+    
+    // tabela de listas
     lazy var tabelaListas : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +56,7 @@ class ViewGerenciaListas: UIViewController {
         table.showsVerticalScrollIndicator = false
         return table
     }()
-    
+    // função para criar uma nova lista a partir do botao
     @objc func create(sender: UIButton!) {
         let alert = UIAlertController(title: "Nova lista",
                                       message: "Digite o nome da nova lista",
@@ -101,105 +99,26 @@ class ViewGerenciaListas: UIViewController {
       }
     }
     
-    @objc func search(sender: UIButton!) {
-        let alert = UIAlertController(title: "Adicionar arroz",
-                                      message: "Digite o nome da lista a qual voce quer adicionar arroz",
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Essa mesmo",
-                                       style: .default) {
-          [unowned self] action in
-                                        
-          guard let textField = alert.textFields?.first,
-            let nameToSave = textField.text else {
-              return
-          }
-            
-            self.find(name: nameToSave)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Não quero adicionar arroz a nada",
-                                         style: .cancel)
-        
-        alert.addTextField()
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true)
-    }
-    
-    func find(name: String) {
-      // cria o requesta para reotornar a lista com determinado nome
-        let fetchRequest: NSFetchRequest<ListaModel>
-        fetchRequest = ListaModel.fetchRequest()
-
-        fetchRequest.predicate = NSPredicate(
-            format: "name = %@", name
-        )
-
-      do {
-          // faz o request e obtem o a lista
-          let object = try managedContext.fetch(fetchRequest)
-          print("nome da lista : \(object[0].name!)")
-          
-          // gera novo produto
-          print("gerando novo produto...")
-          let novo_produto = ProdutoModel(context: managedContext)
-          novo_produto.name = "Arroz"
-          
-          // Adiciona o porduto gerado à lista
-          print("Adicionando arroz a lista...")
-          object[0].addToProdutos(novo_produto)
-          
-          // salva o que foi feito
-          try managedContext.save()
-          
-          // extrai os produtos da lista selecionada
-          var i = 0
-          print("Extraindo produtos da lista")
-          let produtos_da_lista: [ProdutoModel] = produtos(lista: object[0])
-          // percorre a lista e printa os produtos
-          print("tamanho \(produtos_da_lista.count)")
-          for produto in  produtos_da_lista{
-              i += 1
-              print("produto \(i) : \(produto.name!)")
-          }
-      } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-      }
-    }
-    
-    
-    // funcao que retorna os produtos de uma lista
-    func produtos(lista: ListaModel) -> [ProdutoModel] {
-      let request: NSFetchRequest<ProdutoModel> = ProdutoModel.fetchRequest()
-        request.predicate = NSPredicate(format: "ANY listas = %@", lista)
-      var fetchedProducts: [ProdutoModel] = []
-      do {
-          fetchedProducts = try self.managedContext.fetch(request)
-      } catch let error {
-        print("Error fetching products \(error)")
-      }
-      return fetchedProducts
-    }
-    
+    // recarrega a tabela sempre que a view vai reaparecer
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
         fullReloadTableData()
       
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // Define o título da view
         self.title = "Listas"
         
+        // Configura a barra de navegação
         self.navigationItem.rightBarButtonItem  = addButton
         
+        // adiciona elemento
         self.view.addSubview(tabelaListas)
         
+        // configura elemento
         setupTabelaOferta()
         
         view.backgroundColor = .white
@@ -214,10 +133,12 @@ class ViewGerenciaListas: UIViewController {
     }
 }
 
+// cria protcolo para poder se comunicar com as row da table
 protocol CustomTableViewCellDelegate: AnyObject {
     func updateListaAtual(for cell: TableViewListShort)
 }
 
+// gerenciamento da table
 extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CustomTableViewCellDelegate {
     func updateListaAtual(for cell: TableViewListShort) {
         //code
@@ -241,11 +162,9 @@ extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISear
             cell.checkMark.associatedName = lista.name
         if(lista.name == defaults.string(forKey: "listaAtual")){
             cell.checkMark.isChecked = true
-            print("tenho \(lista.name!) é \(defaults.string(forKey: "listaAtual")!) - OK MARCADO")
         }
         else{
             cell.checkMark.isChecked = false
-            print("tenho \(lista.name!) é \(defaults.string(forKey: "listaAtual")!) - NÃO MARCADO")
         }
             return cell
         }
@@ -266,11 +185,19 @@ extension ViewGerenciaListas: UITableViewDelegate, UITableViewDataSource, UISear
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            if(listasCore[indexPath.row].name == defaults.string(forKey: "listaAtual")){
+                let alert = UIAlertController(title: "", message: "Não é permitido apagar a lista selecionada como atual, selecione outra lista como atual para poder apagar esta.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok",
+                                              style: .default))
+                present(alert, animated: true)
+                return
+            }
             // deleta o objeto do coreData
             managedContext.delete(listasCore[indexPath.row])
             // salva as aletrações e recarrega a tabela
             do {
                 try managedContext.save()
+                listasCore.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
 
                 fullReloadTableData()

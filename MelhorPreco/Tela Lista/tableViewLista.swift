@@ -12,7 +12,7 @@ class TableViewLista : UITableViewCell {
     
     static let identifier : String = "TableViewLista"
         
-    
+    // nome do produto
     var labelProduto : UILabel = {
         let produto = UILabel()
         produto.translatesAutoresizingMaskIntoConstraints = false
@@ -22,10 +22,14 @@ class TableViewLista : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        // configuração da view
         self.backgroundColor = .clear
-
+        
+        // adicionando elemento
         self.contentView.addSubview(labelProduto)
-
+        
+        //configurando elemento
         configLabelProduto()
         
     }

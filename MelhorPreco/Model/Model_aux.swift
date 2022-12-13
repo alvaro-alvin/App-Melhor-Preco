@@ -8,6 +8,8 @@
 import Foundation
 import CoreData
 
+
+// Classe com diversas operações auxiliares para manipular objetos no coreData
 class DataManager{
 
     // Cria e salva nova lista no coreData e retorna a lista salva

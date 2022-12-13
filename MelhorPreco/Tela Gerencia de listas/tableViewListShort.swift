@@ -14,6 +14,7 @@ class TableViewListShort : UITableViewCell{
     
     weak var delegate: CustomTableViewCellDelegate?
     
+    // ação quando é selecionada como lista atual
     @objc func buttonClicked(sender: UIButton) {
         
         if sender == checkMark {
@@ -22,6 +23,7 @@ class TableViewListShort : UITableViewCell{
         }
     }
     
+    // nome da lista
     var listName : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +32,7 @@ class TableViewListShort : UITableViewCell{
         return label
     }()
     
+    // fundo
     var backGround : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,14 +56,18 @@ class TableViewListShort : UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        // configuração da view
         self.backgroundColor = .clear
-
+        
+        // adicionando elementos
         self.contentView.addSubview(backGround)
         self.contentView.addSubview(listName)
         self.contentView.addSubview(checkMark)
         
+        // definindo nome associado ao check
         checkMark.associatedName = listName.text
         
+        // configurando elementos
         configBG()
         configListName()
         configCheckMark()
@@ -112,9 +119,6 @@ class CheckRadio: UIButton {
     let uncheckedImage = UIImage(systemName: "circle")!.withTintColor(UIColor(named: "appBlue")!) as UIImage
     // por algum motivo a cor nao é trocada
     
-    //let checkedImage = UIImage(systemName: "largecircle.fill.circle")! as UIImage
-    //let uncheckedImage = UIImage(systemName: "circle")! as UIImage
-    
     var associatedName: String?
     
     // Bool property
@@ -130,7 +134,6 @@ class CheckRadio: UIButton {
     }
         
     override func awakeFromNib() {
-        //self.addTarget(self, action:#selector(buttonClicked), for: .touchUpInside)
         self.isChecked = false
     }
     

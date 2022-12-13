@@ -11,7 +11,7 @@ class TableViewTitle : UITableViewCell {
     
     static let identifier : String = "TableViewTitle"
        
-    
+    // titulo
     var title : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,10 +25,15 @@ class TableViewTitle : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //self.backgroundColor = .blue
-        self.contentView.addSubview(title)
+        
+        // configura view
         self.backgroundColor = .white
         self.selectionStyle = .none
+        
+        // adiciona elemento
+        self.contentView.addSubview(title)
+        
+        // confiugra elemento
         configTitle()
     }
     

@@ -5,6 +5,8 @@
 //  Created by user219712 on 8/31/22.
 //
 
+// possui a definição da classe Oferta e as offertas mocadas no formato .json, no futuro sera coreData
+
 import Foundation
 
 

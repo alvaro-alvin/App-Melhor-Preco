@@ -12,11 +12,13 @@ import UIKit
 
 class UIViewOferta: UIViewController{
     
-    
+    // objeto da ofrte (sem coreData)
     public var oferta: Oferta?
     
+    // lista de mercados
     var items = listaMercados    
     
+    // imagem do produto
     lazy var imageViewProduto : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +28,7 @@ class UIViewOferta: UIViewController{
         return image
     }()
     
+    // nome do produto
     lazy var labelNome : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +38,7 @@ class UIViewOferta: UIViewController{
         return nome
     }()
 
-    
+    // tabela de mercados
     lazy var tabelaMercados : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -52,12 +55,19 @@ class UIViewOferta: UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if let oferta = oferta {
+            // confiugra view
             self.title = oferta.nome
+            
+            // define variaveis
             imageViewProduto.image = UIImage(named: oferta.imagem)
             labelNome.text = oferta.nome
+            
+            // adiciona elementos
             self.view.addSubview(imageViewProduto)
             self.view.addSubview(labelNome)
             self.view.addSubview(tabelaMercados)
+            
+            // configura elementos
             configImageView()
             configLabelNome()
             setupTabelaMercado()
@@ -112,11 +122,11 @@ extension UIViewOferta: UITableViewDelegate, UITableViewDataSource{
                 print(mercado)
         cell.imageViewProduto.image  = UIImage(named: mercado.imagem)
         cell.labelNome.text = mercado.nome
-        cell.textPreco.text = "R$" + mercado.preco
+        cell.labelPreco.text = "R$" + mercado.preco
         cell.labelPorcentagem.text =  mercado.porcentagem + "%"
-        cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
+        cell.labelAbaixoDaMedia.text = "Abaixo da\nmédia"
         if(indexPath.row == 0){
-            cell.textAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
+            cell.labelAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
             cell.labelPorcentagem.textColor = UIColor(named: "verde_oferta")
         }
         return cell

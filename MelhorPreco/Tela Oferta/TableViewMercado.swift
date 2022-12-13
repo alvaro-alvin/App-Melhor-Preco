@@ -10,14 +10,16 @@ import UIKit
 class TableViewMercado : UITableViewCell {
     
     static let identifier : String = "TableViewMercado"
-
+    
+    // celula esquerda para organização
     var celulaEsquerda : UIView = {
         let celula = UIView()
         celula.translatesAutoresizingMaskIntoConstraints = false
         //celula.backgroundColor = .blue
         return celula
     }()
-
+    
+    // celula direita para organização
     var celulaDireita : UIView = {
         let celula = UIView()
         celula.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +27,7 @@ class TableViewMercado : UITableViewCell {
         return celula
     }()
 
-
+    // imagem do produto
     var imageViewProduto : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +36,8 @@ class TableViewMercado : UITableViewCell {
         image.layer.masksToBounds = true
         return image
     }()
-
+    
+    // nome do produto
     var labelNome : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -45,8 +48,9 @@ class TableViewMercado : UITableViewCell {
         
         return nome
     }()
-
-    var textPreco : UILabel = {
+    
+    // preco
+    var labelPreco : UILabel = {
         let preco = UILabel()
         preco.translatesAutoresizingMaskIntoConstraints = false
         preco.text = "       "
@@ -57,8 +61,8 @@ class TableViewMercado : UITableViewCell {
         return preco
     }()
 
-
-    var textAbaixoDaMedia : UILabel = {
+    // label "Abaixo da média"
+    var labelAbaixoDaMedia : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
         nome.text = ""
@@ -72,7 +76,7 @@ class TableViewMercado : UITableViewCell {
         return nome
     }()
 
-
+    // label da porcentagem
     var labelPorcentagem : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -85,14 +89,19 @@ class TableViewMercado : UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //self.backgroundColor = .blue
+        // configurando view
+        self.backgroundColor = .white
+        
+        // adicionando elementos
         self.contentView.addSubview(celulaDireita)
         self.contentView.addSubview(celulaEsquerda)
         self.celulaEsquerda.addSubview(imageViewProduto)
-        self.celulaEsquerda.addSubview(textPreco)
+        self.celulaEsquerda.addSubview(labelPreco)
         self.celulaEsquerda.addSubview(labelNome)
         self.celulaDireita.addSubview(labelPorcentagem)
-        self.celulaDireita.addSubview(textAbaixoDaMedia)
+        self.celulaDireita.addSubview(labelAbaixoDaMedia)
+        
+        // configurando elementos
         configCelulaDireita()
         configCelulaEsquerda()
         configImageView()
@@ -102,8 +111,6 @@ class TableViewMercado : UITableViewCell {
         configTextMedia()
         
     }
-
-
 
     func configCelulaDireita(){
         NSLayoutConstraint.activate([
@@ -144,10 +151,10 @@ class TableViewMercado : UITableViewCell {
     func configTextPreco(){
         NSLayoutConstraint.activate([
             
-            textPreco.topAnchor.constraint(equalTo: celulaEsquerda.topAnchor, constant: 10),
-            textPreco.bottomAnchor.constraint(equalTo: celulaEsquerda.centerYAnchor),
-            textPreco.leadingAnchor.constraint(equalTo: imageViewProduto.trailingAnchor, constant: 10),
-            textPreco.trailingAnchor.constraint(equalTo: celulaEsquerda.trailingAnchor)
+            labelPreco.topAnchor.constraint(equalTo: celulaEsquerda.topAnchor, constant: 10),
+        labelPreco.bottomAnchor.constraint(equalTo: celulaEsquerda.centerYAnchor),
+        labelPreco.leadingAnchor.constraint(equalTo: imageViewProduto.trailingAnchor, constant: 10),
+            labelPreco.trailingAnchor.constraint(equalTo: celulaEsquerda.trailingAnchor)
         ])
     }
 
@@ -162,10 +169,10 @@ class TableViewMercado : UITableViewCell {
 
     func configTextMedia(){
         NSLayoutConstraint.activate([
-            textAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor, constant: -10),
-            textAbaixoDaMedia.bottomAnchor.constraint(equalTo: celulaDireita.bottomAnchor),
-            textAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor, constant: 22),
-            textAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor, constant: -22)
+            labelAbaixoDaMedia.topAnchor.constraint(equalTo: labelPorcentagem.bottomAnchor, constant: -10),
+            labelAbaixoDaMedia.bottomAnchor.constraint(equalTo: celulaDireita.bottomAnchor),
+            labelAbaixoDaMedia.leadingAnchor.constraint(equalTo: celulaDireita.leadingAnchor, constant: 22),
+            labelAbaixoDaMedia.trailingAnchor.constraint(equalTo: celulaDireita.trailingAnchor, constant: -22)
             
         ])
     }

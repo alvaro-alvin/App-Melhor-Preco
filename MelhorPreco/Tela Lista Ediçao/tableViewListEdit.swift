@@ -14,27 +14,30 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
     static let identifier : String = "TableViewListEdit"
     
+    // objeto do produto
     var produto: ProdutoModel?
     
-    var produtoName: String?
-    
+    // delegate que ira receber a view superior
     weak var delegate: ProductsViewCellDelegate?
-
+    
+    // contexto do coreData
     let managedContext =
       (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    // flag que identifica se é um produto
     var isProduto = true
-        
-    var index: Int = 0
     
+    // User defaults
     let defaults = UserDefaults.standard
     
+    // texto editavel do produto
     var textProduto : UITextField = {
         let produto = UITextField()
         produto.translatesAutoresizingMaskIntoConstraints = false
         return produto
     }()
     
+    // prefixo
     var prefix : UILabel = {
         let prefix = UILabel()
         prefix.translatesAutoresizingMaskIntoConstraints = false
@@ -42,14 +45,16 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
         return prefix
     }()
     
+    // funcao de deletar o produto
     @objc func deleteButtonClicked(sender: UIButton) {
         
         if sender == delete {
-            managedContext.delete(produto!)
+            produto?.removeFromListas((delegate?.getLista())!)
             delegate?.deleteCell(for: self)
         }
     }
     
+    // botão de deletar
     var delete : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -68,20 +73,24 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        // configura view
         self.backgroundColor = .clear
         
+        // configura produto
         textProduto.delegate = self
         
+        // adiciona elementos
         self.contentView.addSubview(prefix)
         self.contentView.addSubview(textProduto)
         self.contentView.addSubview(delete)
         
+        // configura elementos
         configPrefix()
         configLabelProduto()
         configButton()
         
     }
-    
+    // função auxiliar
     func autoConfigure(){
         textProduto.text = produto!.name
     }
@@ -123,9 +132,10 @@ class TableViewListEdit : UITableViewCell, UITextFieldDelegate{
     
 }
 
+// botão para adicionar produto (função de botão é feira por meio da seleção da celular na tabela)
 class AddProductButton : UITableViewCell{
     
-    
+    // label "+ Adicionar produto"
     var button : UILabel = {
         let button = UILabel()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -136,10 +146,13 @@ class AddProductButton : UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        // configura view
         self.backgroundColor = .clear
-
+        
+        // adiciona elemento
         self.contentView.addSubview(button)
         
+        // configura elemento
         configButton()
     }
     

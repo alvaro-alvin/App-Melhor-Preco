@@ -11,8 +11,10 @@ import MapKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
+    // gerenciador de localização local
     var locationManager: LocationManager?
     
+    // mapa
     lazy var map: MKMapView = {
         map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
@@ -23,19 +25,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // inicia o gerenciador de localização local
         locationManager = LocationManager(mainView: self)
         
+        // verifica se é possível obter a localização
         locationManager!.checkIfLocationServicesIsEnabled()
         
+        // caso esteja disponivel é utilizada
         if let location = locationManager!.userLocation {
             map.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-        } else{
+        }
+        // caso não esteja disponível é mostrado o ponto (0,0)
+        else{
             map.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
         }
         view.addSubview(map)
         
-        
+        // configura as contraints do mapa
         configMap()
+        // deine a cor de fundo da view como branco
         view.backgroundColor = .white
             }
     
@@ -49,7 +57,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         ])
     }
     
-    // fubnção chamda sempre que é alterada a autorização
+    // função chamda sempre que é alterada a autorização
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         locationManager!.checkLocationAuthorization()
         if let location = locationManager!.userLocation {
@@ -63,9 +71,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
 
 class LocationManager{
-    
+    // a view que ele se encontra para ser a delegate
     var mainView: CLLocationManagerDelegate?
+    // o gerenciador em si
     var manager: CLLocationManager?
+    // coordenadas da localização do usuário
     var userLocation: CLLocationCoordinate2D?
     
     init(mainView: CLLocationManagerDelegate?){
@@ -82,6 +92,7 @@ class LocationManager{
         }
     }
     
+    // checa localização e gerencia todos os possíveis casos
     func checkLocationAuthorization(){
         guard let manager = manager else {return}
         

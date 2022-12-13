@@ -10,15 +10,19 @@ import UIKit
 
 class UIViewMercado: UIViewController{
     
-    
+    // objeto do mercado
     public var mercado: Mercado?
     
+    // User defaults
     let defaults = UserDefaults.standard
     
+    // lista de ofertas (mocadas)
     var items = listaOfertas
     
+    // lista atual
     var listaAtual: String?
     
+    // imagem do mercado
     lazy var imageViewMercado : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -29,18 +33,21 @@ class UIViewMercado: UIViewController{
         return image
     }()
     
+    // view auxiliar para alocar distancia
     lazy var viewDistancia: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    // view auxiliar para alocar preço
     lazy var viewPreco: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    // label da distancia
     lazy var labelDistancia: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +59,7 @@ class UIViewMercado: UIViewController{
         return label
     }()
     
+    // botão (não funcional) de obter rota
     lazy var buttonGoTo: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +67,7 @@ class UIViewMercado: UIViewController{
         return button
     }()
     
+    // lavel "Total"
     lazy var labelTotal: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +78,7 @@ class UIViewMercado: UIViewController{
         return label
     }()
     
+    // label do preço
     lazy var labelPreço: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +90,7 @@ class UIViewMercado: UIViewController{
         return label
     }()
     
+    // Botão de compra (não funcional)
     lazy var buttonBuy: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +98,7 @@ class UIViewMercado: UIViewController{
         return button
     }()
     
+    // Label com o nome da lista atual
     lazy var labelListaAtual : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -97,7 +109,7 @@ class UIViewMercado: UIViewController{
         nome.font = UIFont.boldSystemFont(ofSize: 24)
         return nome
     }()
-    
+    // separador
     lazy var separador : UIView = {
         let separador = UIView()
         separador.backgroundColor = UIColor(named: "AccentColor")
@@ -105,7 +117,7 @@ class UIViewMercado: UIViewController{
         return separador
     }()
     
-    
+    // nome do mercado
     lazy var labelNome : UILabel = {
         let nome = UILabel()
         nome.translatesAutoresizingMaskIntoConstraints = false
@@ -115,6 +127,7 @@ class UIViewMercado: UIViewController{
         return nome
     }()
     
+    // tabela com os mercado (mocada)
     lazy var tabelaMercados : UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -129,11 +142,16 @@ class UIViewMercado: UIViewController{
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         if let mercado = mercado {
+            // configura view
             self.title = mercado.nome
+            
+            // define variaveis
             imageViewMercado.image = UIImage(named: mercado.imagem)
             labelNome.text = mercado.nome
+            
+            // adiciona elementos
             self.view.addSubview(imageViewMercado)
             self.view.addSubview(viewDistancia)
             self.view.addSubview(viewPreco)
@@ -146,6 +164,7 @@ class UIViewMercado: UIViewController{
             self.view.addSubview(separador)
             self.view.addSubview(tabelaMercados)
             
+            // confugura elementos
             configImageView()
             configDistanciaView()
             configPrecoView()
@@ -273,7 +292,7 @@ extension UIViewMercado: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return self.items.count
     }
-// TODO: fazer um TableViewMercado
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: TableViewOferta.identifier,
@@ -286,13 +305,13 @@ extension UIViewMercado: UITableViewDelegate, UITableViewDataSource{
         cell.labelNome.text = produto.nome.shorted(to: 15)
         cell.textPreco.text = "R$" + produto.preco
         cell.labelPorcentagem.text =  produto.porcentagem + "%"
-        cell.textAbaixoDaMedia.text = "Abaixo da\nmédia"
+        cell.labelAbaixoDaMedia.text = "Abaixo da\nmédia"
         if(indexPath.row == 0){
-            cell.textAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
+            cell.labelAbaixoDaMedia.textColor = UIColor(named: "verde_oferta")
             cell.labelPorcentagem.textColor = UIColor(named: "verde_oferta")
         }
         else{
-            cell.textAbaixoDaMedia.textColor = UIColor.darkGray
+            cell.labelAbaixoDaMedia.textColor = UIColor.darkGray
             cell.labelPorcentagem.textColor = UIColor.darkGray
         }
         return cell
@@ -307,6 +326,8 @@ extension UIViewMercado: UITableViewDelegate, UITableViewDataSource{
         //navigationController?.pushViewController(detailView, animated: true)
     }
 }
+
+// funções auxiliares para texto
 
 extension UILabel {
     func textWidth() -> CGFloat {
